@@ -1,0 +1,190 @@
+.sampleLister{
+		width: 1000px;
+		height: 600px;
+}
+.lister-btn{
+		margin-left:10px;
+		margin-top:10px;
+		display:inline-block;
+}
+.listerContent{
+		width: 98%;
+		height: 90%;
+		border: 1px solid #45aeea;
+		background-color: white;
+		margin-left: 1%;
+		color: black;
+		margin-top:1%;
+}
+.listerContent>p:nth-child(1){
+		text-align:center;
+}
+.encrypt>span:nth-child(1){
+		margin-left:100px;
+}
+.encrypt>span:nth-child(2){
+		margin-left:220px;
+}
+.encrypt>span:nth-child(3){
+		margin-left:300px;
+}
+.formWrapper{
+		width:98%;
+		height:80%;
+		border:1px solid black;
+		margin-left:1%;
+}
+.wrapperTable{
+		width:99%;
+		height:99%;
+		margin-left:0.5%;
+		margin-top:0.5%;
+		border:1px solid black;
+		table-layout:fixed;
+}
+.wrapperTable>tr{
+		text-align:center;
+}
+/*第一行*/
+.tr-colx1>td{
+		text-align:center;
+		font-size:11.51px;
+		height:42px;
+		border-right:1px solid black;
+		border-bottom:1px solid black;
+}
+.td-colx-1{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-2{
+		width:6%;
+}
+.td-colx-3{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-4{
+		width:5%;
+}
+.td-colx-5{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-6{
+		width:8%;
+}
+.td-colx-7{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-8{
+		width:5%;
+
+}
+.td-colx-9{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-10{
+		width:8%;
+}
+.td-colx-11{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx-12{
+		width:12%;
+}
+/*第二行*/
+.tr-colx2>td{
+		font-size:11.51px;
+		height:16px;
+		text-align:center;
+		border-right:1px solid black;
+		border-bottom:1px solid black;
+}
+.td-colx2-1{
+		width:5%;
+		background-color:#f3f7ff;
+		text-align:center;
+}
+.td-colx2-2{
+		width:11%;
+}
+.td-colx2-3{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx2-4{
+		width:13%;
+}
+.td-colx2-5{
+		width:4%;
+		background-color:#f3f7ff;
+}
+.td-colx2-6{
+		width:5%;
+}
+.td-colx2-7{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx2-8{
+		width:8%;
+}
+.td-colx2-9{
+		width:5%;
+		background-color:#f3f7ff;
+}
+.td-colx2-10{
+		width:12%;
+}
+
+
+/*第三行*/
+.tr-colx3>td{
+		background-color:#f3f7ff;
+		text-align:center;
+		font-size:11.51px;
+		height:23px;
+		border-right:1px solid black;
+		border-bottom:1px solid black;
+}
+
+.tr-colxlable>td{
+		text-align:center;
+		font-size:11.51px;
+		height:23px;
+		border-right:1px solid black;
+		border-bottom:1px solid black;
+}
+.td-colx3-1{
+		width:5%;
+}
+.td-colx3-2{
+		width:44%;
+}
+.td-colx3-3{
+		width:13%;
+}
+.td-colx3-4{
+		width:6%;
+}
+.td-colx3-5{
+		width:6%;
+}
+	/*最后一行*/
+.lastTr{
+	height: 42px;
+   text-align: center;
+	font-size: 17.18px;
+}
+.lastTr>td:nth-child(1){
+	width: 5%;
+	background-color: #f3f7ff;
+	border-right: 1px solid black;
+}
+.lastTr>td:nth-child(2){
+	width: 71%;
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlWeekScheduleDetailsDao">
+    
+	<sql id="tlWeekScheduleDetailsColumns">
+		a.id AS "id",
+		a.msid AS "msid",
+		b.mid  AS "weekName",
+		a.project_id AS "projectId",
+		a.test_road AS "testRoad",
+		a.test_date AS "testDate",
+		a.time_series AS "timeSeries",
+		a.details AS "details",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlWeekScheduleDetailsJoins">
+		left join tl_main_schedule b on b.id = a.msid
+	</sql>
+    
+	<select id="get" resultType="TlWeekScheduleDetails">
+		SELECT 
+			<include refid="tlWeekScheduleDetailsColumns"/>
+		FROM tl_week_schedule_details a
+		<include refid="tlWeekScheduleDetailsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlWeekScheduleDetails">
+		SELECT 
+			<include refid="tlWeekScheduleDetailsColumns"/>
+		FROM tl_week_schedule_details a
+		<include refid="tlWeekScheduleDetailsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="msid != null and msid != ''">
+				AND a.msid = #{msid}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road = #{testRoad}
+			</if>
+			<if test="testDate != null and testDate != ''">
+				AND a.test_date = #{testDate}
+			</if>
+			<if test="timeSeries != null and timeSeries != ''">
+				AND a.time_series = #{timeSeries}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlWeekScheduleDetails">
+		SELECT 
+			<include refid="tlWeekScheduleDetailsColumns"/>
+		FROM tl_week_schedule_details a
+		<include refid="tlWeekScheduleDetailsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_week_schedule_details(
+			id,
+			msid,
+			project_id,
+			test_road,
+			test_date,
+			time_series,
+			details,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{msid},
+			#{projectId},
+			#{testRoad},
+			#{testDate},
+			#{timeSeries},
+			#{details},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_week_schedule_details SET 	
+			msid = #{msid},
+			project_id = #{projectId},
+			test_road = #{testRoad},
+			test_date = #{testDate},
+			time_series = #{timeSeries},
+			details = #{details},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_week_schedule_details SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

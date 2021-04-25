@@ -1,0 +1,66 @@
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	/*width: 5%;*/
+}
+input{
+	width: 90%;
+	padding: 4px;
+}
+textarea{
+	width:99%;
+	height: 80%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#head{
+		width: 100%;
+}
+table{
+	width: 756px;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+}
+.tr1,.tr2{
+	height:40px;
+}
+input[type=checkbox]{
+	width: 20px;
+}
+.tr1>td,.tr2>td{
+	text-align: center;
+}
+.tr3{
+	height:100px;
+}
+.tr4{
+	height: 600px;
+}
+.textarea2{
+	width: 99%;
+	height: 95%;
+}
+.tr5{
+	height: 100px;
+}
+.tr5>td{
+	text-align: center;
+}
+.tr6{
+	height: 50px;
+}

@@ -1,0 +1,80 @@
+/*通用头部*/
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 116px;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 98%;
+	height: 74%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+/*框架*/
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+.table1{
+	width: 800px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.left{
+	width: 98%;
+	text-align: left;
+}
+input{
+	width:70%;
+}
+.tr1{
+   height: 50px;
+}
+.title>span:nth-child(3){
+   margin-left: 550px;
+}
+.table2{
+	 margin-top: 50px;
+	 width: 800px;
+	 height: 700px;
+	 margin-left: 10px;
+	 border-left: 1px solid black;
+	 border-bottom: 1px solid black;
+	 border-right: 2px solid black;
+	 border-top: 2px solid black;
+}
+.line{
+	 width: 800px;
+	 margin-top:50px;
+	 height: 10px;
+	 border-top:1px solid black;
+}
+.tr2{
+	height: 30px;
+}

@@ -1,0 +1,62 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 8px;
+	width: 80%;
+}
+textarea{
+	width:76%;
+	height: 80%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+#head{
+	width: 100%;
+}
+.txt{
+	width:100%;
+	margin-top:30px;
+	display:inline-block;
+}
+table{
+	width: 800px;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+}
+.tr1{
+	height:50px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	text-align: center;
+	height: 50px;
+}
+.input-append{
+	width:120px;
+}
+.span-xc{
+	margin-left:22%;
+}
+.span-xd{
+	margin-left:21%;
+}
+.select2-container .select2-choice{
+	width:208px;
+}

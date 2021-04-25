@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlPaymentFormDao">
+    
+	<sql id="tlPaymentFormColumns">
+		a.id AS "id",
+		a.paid_code AS "paidCode",
+		a.company_code AS "companyCode",
+		a.company_name AS "companyName",
+		a.contacts AS "contacts",
+		a.contacts_tel AS "contactsTel",
+		a.application_date AS "applicationDate",
+		a.payment_paln_date AS "paymentPalnDate",
+		a.payment_actual_date AS "paymentActualDate",
+		a.payment_type AS "paymentType",
+		a.application_payment_amount AS "applicationPaymentAmount",
+		a.confirm_payment_amount AS "confirmPaymentAmount",
+		a.invoice_code AS "invoiceCode",
+		a.invoice_no AS "invoiceNo",
+		a.payment_status AS "paymentStatus",
+		a.reason AS "reason",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlPaymentFormJoins">
+	</sql>
+    
+	<select id="get" resultType="TlPaymentForm">
+		SELECT 
+			<include refid="tlPaymentFormColumns"/>
+		FROM tl_payment_form a
+		<include refid="tlPaymentFormJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlPaymentForm">
+		SELECT 
+			<include refid="tlPaymentFormColumns"/>
+		FROM tl_payment_form a
+		<include refid="tlPaymentFormJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="paidCode != null and paidCode != ''">
+				AND a.paid_code = #{paidCode}
+			</if>
+			<if test="companyName != null and companyName != ''">
+				AND a.company_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{companyName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
+			</if>
+			<if test="contacts != null and contacts != ''">
+				AND a.contacts = #{contacts}
+			</if>
+			<if test="paymentType != null and paymentType != ''">
+				AND a.payment_type = #{paymentType}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlPaymentForm">
+		SELECT 
+			<include refid="tlPaymentFormColumns"/>
+		FROM tl_payment_form a
+		<include refid="tlPaymentFormJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_payment_form(
+			id,
+			paid_code,
+			company_code,
+			company_name,
+			contacts,
+			contacts_tel,
+			application_date,
+			payment_paln_date,
+			payment_actual_date,
+			payment_type,
+			application_payment_amount,
+			confirm_payment_amount,
+			invoice_code,
+			invoice_no,
+			payment_status,
+			reason,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{paidCode},
+			#{companyCode},
+			#{companyName},
+			#{contacts},
+			#{contactsTel},
+			#{applicationDate},
+			#{paymentPalnDate},
+			#{paymentActualDate},
+			#{paymentType},
+			#{applicationPaymentAmount},
+			#{confirmPaymentAmount},
+			#{invoiceCode},
+			#{invoiceNo},
+			#{paymentStatus},
+			#{reason},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_payment_form SET 	
+			paid_code = #{paidCode},
+			company_code = #{companyCode},
+			company_name = #{companyName},
+			contacts = #{contacts},
+			contacts_tel = #{contactsTel},
+			application_date = #{applicationDate},
+			payment_paln_date = #{paymentPalnDate},
+			payment_actual_date = #{paymentActualDate},
+			payment_type = #{paymentType},
+			application_payment_amount = #{applicationPaymentAmount},
+			confirm_payment_amount = #{confirmPaymentAmount},
+			invoice_code = #{invoiceCode},
+			invoice_no = #{invoiceNo},
+			payment_status = #{paymentStatus},
+			reason = #{reason},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_payment_form SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlCarInfoDao">
+    
+	<sql id="tlCarInfoColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.car_type AS "carType",
+		a.load_type AS "loadType",
+		a.car_weight AS "carWeight",
+		a.max_axle_load AS "maxAxleLoad",
+		a.fuel_type AS "fuelType",
+		a.estimated_consumption AS "estimatedConsumption",
+		a.color_license AS "colorLicense",
+		a.brand_model AS "brandModel",
+		a.limit_speed AS "limitSpeed",
+		a.vin_after_six AS "vinAfterSix",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlCarInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="TlCarInfo">
+		SELECT 
+			<include refid="tlCarInfoColumns"/>
+		FROM tl_car_info a
+		<include refid="tlCarInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlCarInfo">
+		SELECT 
+			<include refid="tlCarInfoColumns"/>
+		FROM tl_car_info a
+		<include refid="tlCarInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id =  #{parentId}
+			</if>
+			<if test="vinAfterSix != null and vinAfterSix != ''">
+				AND a.vin_after_six LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vinAfterSix}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vinAfterSix}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vinAfterSix},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlCarInfo">
+		SELECT 
+			<include refid="tlCarInfoColumns"/>
+		FROM tl_car_info a
+		<include refid="tlCarInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_car_info(
+			id,
+			parent_id,
+			car_type,
+			load_type,
+			car_weight,
+			max_axle_load,
+			fuel_type,
+			estimated_consumption,
+			color_license,
+			brand_model,
+			limit_speed,
+			vin_after_six,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{carType},
+			#{loadType},
+			#{carWeight},
+			#{maxAxleLoad},
+			#{fuelType},
+			#{estimatedConsumption},
+			#{colorLicense},
+			#{brandModel},
+			#{limitSpeed},
+			#{vinAfterSix},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_car_info SET 	
+			parent_id = #{parentId},
+			car_type = #{carType},
+			load_type = #{loadType},
+			car_weight = #{carWeight},
+			max_axle_load = #{maxAxleLoad},
+			fuel_type = #{fuelType},
+			estimated_consumption = #{estimatedConsumption},
+			color_license = #{colorLicense},
+			brand_model = #{brandModel},
+			limit_speed = #{limitSpeed},
+			vin_after_six = #{vinAfterSix},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_car_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlDynamicGetEqDao">
+    
+	<sql id="tlDynamicGetEqColumns">
+		a.id AS "id",
+		a.start_place AS "startPlace",
+		a.end_place AS "endPlace",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.bind_car AS "bindCar",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlDynamicGetEqJoins">
+	</sql>
+    
+	<select id="get" resultType="TlDynamicGetEq">
+		SELECT 
+			<include refid="tlDynamicGetEqColumns"/>
+		FROM tl_dynamic_get_eq a
+		<include refid="tlDynamicGetEqJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlDynamicGetEq">
+		SELECT 
+			<include refid="tlDynamicGetEqColumns"/>
+		FROM tl_dynamic_get_eq a
+		<include refid="tlDynamicGetEqJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="startPlace != null and startPlace != ''">
+				AND a.start_place LIKE 
+					<if test="dbName == 'oracle'">'%'||#{startPlace}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{startPlace}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{startPlace},'%')</if>
+			</if>
+			<if test="endPlace != null and endPlace != ''">
+				AND a.end_place LIKE 
+					<if test="dbName == 'oracle'">'%'||#{endPlace}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{endPlace}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{endPlace},'%')</if>
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{startTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{startTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{startTime},'%')</if>
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{endTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{endTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{endTime},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlDynamicGetEq">
+		SELECT 
+			<include refid="tlDynamicGetEqColumns"/>
+		FROM tl_dynamic_get_eq a
+		<include refid="tlDynamicGetEqJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_dynamic_get_eq(
+			id,
+			start_place,
+			end_place,
+			start_time,
+			end_time,
+			bind_car,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{startPlace},
+			#{endPlace},
+			#{startTime},
+			#{endTime},
+			#{bindCar},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_dynamic_get_eq SET 	
+			start_place = #{startPlace},
+			end_place = #{endPlace},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			bind_car = #{bindCar},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_dynamic_get_eq SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

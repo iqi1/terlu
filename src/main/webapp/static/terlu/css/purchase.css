@@ -1,0 +1,83 @@
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 5%;
+}
+textarea{
+	width: 76%;
+	height:70%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+table{
+	width: 817px;
+	border: 1px solid black;
+}
+.left{
+	width: 98%;
+	text-align: left;
+}
+.tr1{
+	height: 40px;
+}
+.last{
+	position: absolute;
+	bottom: 10px;
+}
+.last>span{
+	margin-left: 150px;
+}
+input{
+	width: 61%;
+}
+.title>span:nth-child(2){
+	margin-left: 100px;
+}
+.title>span:nth-child(3){
+	margin-left: 68px;
+}
+.td3{
+	position: relative;
+}
+.txt{
+	position: absolute;
+	left: 10px;
+	top:10px;
+}
+.last{
+	position: absolute;
+	right: 50px;
+	bottom: 10px;
+}
+td{
+   	width: 8%;
+   	height:51px;
+}
+.td1{
+	width: 3%;
+}

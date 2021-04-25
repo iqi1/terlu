@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlFinanceInfoDao">
+    
+	<sql id="tlFinanceInfoColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.invoice_rise AS "invoiceRise",
+		a.vat_number AS "vatNumber",
+		a.invoice_receiver AS "invoiceReceiver",
+		a.tel_inv_recever AS "telInvRecever",
+		a.email AS "email",
+		a.bank_name AS "bankName",
+		a.account_bank AS "accountBank",
+		a.registered_address AS "registeredAddress",
+		a.invoice_receive_address AS "invoiceReceiveAddress",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlFinanceInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="TlFinanceInfo">
+		SELECT 
+			<include refid="tlFinanceInfoColumns"/>
+		FROM tl_finance_info a
+		<include refid="tlFinanceInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlFinanceInfo">
+		SELECT 
+			<include refid="tlFinanceInfoColumns"/>
+		FROM tl_finance_info a
+		<include refid="tlFinanceInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id =  #{parentId}
+			</if>
+			<if test="invoiceRise != null and invoiceRise != ''">
+				AND a.invoice_rise LIKE 
+					<if test="dbName == 'oracle'">'%'||#{invoiceRise}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{invoiceRise}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{invoiceRise},'%')</if>
+			</if>
+			<if test="vatNumber != null and vatNumber != ''">
+				AND a.vat_number LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vatNumber}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vatNumber}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vatNumber},'%')</if>
+			</if>
+			<if test="invoiceReceiver != null and invoiceReceiver != ''">
+				AND a.invoice_receiver LIKE 
+					<if test="dbName == 'oracle'">'%'||#{invoiceReceiver}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{invoiceReceiver}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{invoiceReceiver},'%')</if>
+			</if>
+			<if test="telInvRecever != null and telInvRecever != ''">
+				AND a.tel_inv_recever LIKE 
+					<if test="dbName == 'oracle'">'%'||#{telInvRecever}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{telInvRecever}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{telInvRecever},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlFinanceInfo">
+		SELECT 
+			<include refid="tlFinanceInfoColumns"/>
+		FROM tl_finance_info a
+		<include refid="tlFinanceInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_finance_info(
+			id,
+			parent_id,
+			invoice_rise,
+			vat_number,
+			invoice_receiver,
+			tel_inv_recever,
+			email,
+			bank_name,
+			account_bank,
+			registered_address,
+			invoice_receive_address,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{invoiceRise},
+			#{vatNumber},
+			#{invoiceReceiver},
+			#{telInvRecever},
+			#{email},
+			#{bankName},
+			#{accountBank},
+			#{registeredAddress},
+			#{invoiceReceiveAddress},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_finance_info SET 	
+			parent_id = #{parentId},
+			invoice_rise = #{invoiceRise},
+			vat_number = #{vatNumber},
+			invoice_receiver = #{invoiceReceiver},
+			tel_inv_recever = #{telInvRecever},
+			email = #{email},
+			bank_name = #{bankName},
+			account_bank = #{accountBank},
+			registered_address = #{registeredAddress},
+			invoice_receive_address = #{invoiceReceiveAddress},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_finance_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

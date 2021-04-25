@@ -1,0 +1,103 @@
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 116px;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 98%;
+	height: 74%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#all{
+	width: 100%;
+}
+#center{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+table{
+	width: 1000px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.b-l{
+	border-left: 1px solid black;
+}
+.b-b{
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+.left{
+	width: 98%;
+	text-align: left;
+}
+.tr1{
+	height: 50px;
+}
+.tr2{
+	height:400px;
+}
+
+.last{
+	position: absolute;
+	bottom: 10px;
+}
+.last>span{
+	margin-left: 150px;
+}
+input{
+	width: 80%;
+}
+.title:nth-child(2){
+	margin-left: 550px;
+}
+.textarea1{
+	width: 98%;
+	height:95%;
+}
+.textarea2{
+	width: 90%;
+	height:78%;
+}
+.tr3{
+	height: 300px;
+}
+.td3{
+	position: relative;
+}
+.txt{
+	position: absolute;
+	left: 10px;
+	top:10px;
+}
+.last{
+	position: absolute;
+	right: 200px;
+}
+.td1,.td3,.td5,.td7,.td9{
+	width:60px;
+}

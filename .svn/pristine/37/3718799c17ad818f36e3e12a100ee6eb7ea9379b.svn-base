@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlMainScheduleDao">
+    
+	<sql id="tlMainScheduleColumns">
+		a.id AS "id",
+		a.mid AS "mid",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlMainScheduleJoins">
+	</sql>
+    
+	<select id="get" resultType="TlMainSchedule">
+		SELECT 
+			<include refid="tlMainScheduleColumns"/>
+		FROM tl_main_schedule a
+		<include refid="tlMainScheduleJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlMainSchedule">
+		SELECT 
+			<include refid="tlMainScheduleColumns"/>
+		FROM tl_main_schedule a
+		<include refid="tlMainScheduleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{startTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{startTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{startTime},'%')</if>
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{endTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{endTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{endTime},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlMainSchedule">
+		SELECT 
+			<include refid="tlMainScheduleColumns"/>
+		FROM tl_main_schedule a
+		<include refid="tlMainScheduleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_main_schedule(
+			id,
+			mid,
+			start_time,
+			end_time,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{mid},
+			#{startTime},
+			#{endTime},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_main_schedule SET 
+			mid = #{mid},	
+			start_time = #{startTime},
+			end_time = #{endTime},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_main_schedule SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

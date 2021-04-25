@@ -1,0 +1,47 @@
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package com.terlu.modules.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.service.CrudService;
+import com.terlu.modules.entity.TlContract;
+import com.terlu.modules.dao.TlContractDao;
+
+/**
+ * 合同添加Service
+ * @author wangqi
+ * @version 2020-02-17
+ */
+@Service
+@Transactional(readOnly = true)
+public class TlContractService extends CrudService<TlContractDao, TlContract> {
+
+	public TlContract get(String id) {
+		return super.get(id);
+	}
+	
+	public List<TlContract> findList(TlContract tlContract) {
+		return super.findList(tlContract);
+	}
+	
+	public Page<TlContract> findPage(Page<TlContract> page, TlContract tlContract) {
+		return super.findPage(page, tlContract);
+	}
+	
+	@Transactional(readOnly = false)
+	public void save(TlContract tlContract) {
+		super.save(tlContract);
+	}
+	
+	@Transactional(readOnly = false)
+	public void delete(TlContract tlContract) {
+		super.delete(tlContract);
+	}
+	
+}

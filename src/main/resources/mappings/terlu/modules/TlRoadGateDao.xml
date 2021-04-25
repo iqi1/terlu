@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlRoadGateDao">
+    
+	<sql id="tlRoadGateColumns">
+		a.id AS "id",
+		a.gate_num AS "gateNum",
+		a.device_num AS "deviceNum",
+		<!-- a.in_out_record AS "inOutRecord",
+		a.card_record AS "cardRecord",
+		a.come_date AS "comeDate",
+		a.out_date AS "outDate", -->
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlRoadGateJoins">
+	</sql>
+    
+	<select id="get" resultType="TlRoadGate">
+		SELECT 
+			<include refid="tlRoadGateColumns"/>
+		FROM tl_road_gate a
+		<include refid="tlRoadGateJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlRoadGate">
+		SELECT 
+			<include refid="tlRoadGateColumns"/>
+		FROM tl_road_gate a
+		<include refid="tlRoadGateJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="gateNum != null and gateNum != ''">
+				AND a.gate_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{gateNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{gateNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{gateNum},'%')</if>
+			</if>
+			<!-- <if test="cardRecord != null and cardRecord != ''">
+				AND a.card_record LIKE 
+					<if test="dbName == 'oracle'">'%'||#{cardRecord}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{cardRecord}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{cardRecord},'%')</if>
+			</if> -->
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlRoadGate">
+		SELECT 
+			<include refid="tlRoadGateColumns"/>
+		FROM tl_road_gate a
+		<include refid="tlRoadGateJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_road_gate(
+			id,
+			gate_num,
+			device_num,
+			<!-- in_out_record,
+			card_record,
+			come_date,
+			out_date, -->
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{gateNum},
+			#{deviceNum},
+			<!-- #{inOutRecord},
+			#{cardRecord},
+			#{comeDate},
+			#{outDate}, -->
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_road_gate SET 	
+			gate_num = #{gateNum},
+			device_num = #{deviceNum},
+			<!-- in_out_record = #{inOutRecord},
+			card_record = #{cardRecord},
+			come_date = #{comeDate},
+			out_date = #{outDate}, -->
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_road_gate SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

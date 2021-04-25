@@ -1,0 +1,89 @@
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 116px;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 76%;
+	height: 74%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+table{
+	width: 800px;
+	border: 1px solid black;
+}
+.b-l{
+	border-left: 1px solid black;
+}
+.b-b{
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+.left{
+	width: 98%;
+	text-align: left;
+}
+.tr1{
+	height: 40px;
+}
+.last{
+	position: absolute;
+	bottom: 10px;
+}
+.title>span{
+	margin-left: 550px;
+}
+.textarea1{
+	width: 98%;
+	height:87%;
+	margin-top: -30px;
+}
+.td3{
+	position: relative;
+}
+.txt{
+	position: absolute;
+	left: 10px;
+	top:10px;
+}
+.last{
+	position: absolute;
+	right: 50px;
+	bottom: 10px;
+}
+.tr1>td{
+	width: 8%;
+	height:50px;
+}
+.td1{
+	width: 3%
+}

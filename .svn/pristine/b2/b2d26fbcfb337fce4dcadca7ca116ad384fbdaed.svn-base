@@ -1,0 +1,219 @@
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+html,body {
+	width: 100%;
+	height: 100%;
+}
+body{
+	font-size: 12px;
+	font-family: Helvetica, Georgia, Arial, sans-serif, ËÎÌå;
+}
+#outer {
+	width:100%;
+}
+#tab{
+	overflow:hidden;
+	zoom:1;
+	background:#f5f5f5;
+	z-index:3
+}
+#tab li {
+	float:left;
+	color:black;
+	height:30px;
+	cursor:pointer;
+	line-height:30px;
+	padding:0 15px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border:1px solid #ccc;
+}
+#tab li.current {
+	color:#555;
+	background-color: #2fa4e7;
+}
+#tab li >a {
+	color: black;
+}
+#content {
+	border-top-width:0;
+	width: 100%;
+	height: 800px;
+	margin-top:10px;
+    position:relative;
+}
+#content ul {
+	line-height:25px;
+	height: 800px;
+	display:none;
+	padding:5px 0;
+	position: absolute;
+	left:4%;
+}
+.btnInfo{
+	right: 50px;
+	width: 150px;
+}
+.btnInfo>.btner{
+	width:273px;
+	position: absolute;
+	height: 50px;
+	top:100px;
+}
+.pageContext{
+	width: 100px;
+	height: 200px;
+	display: none;
+}
+.pageContext ul{
+	width: 100%;
+	height: 100%;
+	margin-top: -20px;
+}
+.pageContext ul li{
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+.pageContext ul li:last-child{
+	border-bottom: 1px solid #ccc;
+}
+.btner{
+	clear: both;
+}
+.btner>span{
+	float: left;
+}
+.btner>span:nth-child(2){
+	margin-left: 10px;
+}
+.btner>span:nth-child(3){
+	margin-left: 10px;
+	margin-top: 25px;
+}
+#reportBtn{
+	margin-top: 25px;
+}
+#delBtn{
+	margin-top:137px;
+	margin-left:-49px;
+}
+#importBox,#originalBox{
+	position: absolute;
+	width: 376px;
+	height: 196px;
+	top:30%;
+	left:40%;
+	background: #F5F5F5;
+	z-index:1985;
+	border: 1px solid #999;
+	box-shadow:-3px 0 3px lightgray, /*×ó±ßÒõÓ°*/
+			   3px 0 3px lightgray, /*ÓÒ±ßÒõÓ°*/
+			   0 -3px 3px #ccc, /*¶¥²¿ÒõÓ°*/
+			   0 3px 3px #ccc;
+    display: none; 
+}
+.importBox-header,.originalBox-header{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+}
+.txt,.originalTxt{
+	font-size: 20px;
+	padding: 10px;
+	line-height: 40px;
+}
+.closed,.originalClosed{
+	position: absolute;
+	right: 10px;
+	margin-top: 10px;
+	width: 20px;
+	height: 20px;
+	border: 50%;
+	display: inline-block;
+	border: 1px solid #ccc;
+	font-size: 15px;
+	text-align: center;
+	color: #555;
+	font-weight: bold;
+	line-height: 20px;
+	background-color: #ddd;
+}
+.closed:hover,.originalClosed:hover{
+	background: gray;
+}
+.container,.containerBox{
+	width: 100%;
+	height: 105px;
+	border-bottom:  1px solid #ccc;
+	margin-left:0px;
+	margin-top:13px;
+}
+.choiceOriginal{
+	margin-left:105px;
+	margin-top:10px;
+}
+.originalBtn{
+	position:absolute;
+	top:83%;
+	left:258px;
+}
+.onload{
+	color: #2fa4e7;
+}
+.wrapper-top{
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.wrapper-bottom{
+	margin-left: 100px;
+	margin-top: 17px;
+}
+.last{
+	width: 100%;
+	height: 40px;
+}
+.last>p{
+	margin-top: 11px;
+}
+#content>ul>form>div>input{
+	padding:0px;
+	vertical-align:middle;
+	text-align:center;
+	margin-top:-10px;
+	font-size:13px;
+}
+#insertBtn{
+	margin-top:137px;
+	margin-left:-188px;
+}
+#insertDate{
+	position:absolute;
+	left:0px;
+}
+#importBtn{
+	position:absolute;
+	left:90px;
+	margin-top:37px;
+	margin-left:60px;
+}
+.container>form{
+	width:360px;
+	height:100px;
+	margin-left:100px;
+	margin-top:10px;
+}
+.report_style{
+	margin-top:92px;
+	margin-left:92px;
+}
+#downLoadFile{
+	position:absolute;
+	top:37px;
+	left:290px;
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlTestSiteHotelDao">
+    
+	<sql id="tlTestSiteHotelColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.room_type AS "roomType",
+		a.reserve_quantity AS "reserveQuantity",
+		a.check_in_date AS "checkInDate",
+		a.check_out_date AS "checkOutDate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlTestSiteHotelJoins">
+	</sql>
+    
+	<select id="get" resultType="TlTestSiteHotel">
+		SELECT 
+			<include refid="tlTestSiteHotelColumns"/>
+		FROM tl_test_site_hotel a
+		<include refid="tlTestSiteHotelJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlTestSiteHotel">
+		SELECT 
+			<include refid="tlTestSiteHotelColumns"/>
+		FROM tl_test_site_hotel a
+		<include refid="tlTestSiteHotelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id =  #{parentId}
+			</if>
+			<if test="roomType != null and roomType != ''">
+				AND a.room_type LIKE 
+					<if test="dbName == 'oracle'">'%'||#{roomType}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{roomType}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{roomType},'%')</if>
+			</if>
+			<if test="checkInDate != null and checkInDate != ''">
+				AND a.check_in_date LIKE 
+					<if test="dbName == 'oracle'">'%'||#{checkInDate}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{checkInDate}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{checkInDate},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlTestSiteHotel">
+		SELECT 
+			<include refid="tlTestSiteHotelColumns"/>
+		FROM tl_test_site_hotel a
+		<include refid="tlTestSiteHotelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_test_site_hotel(
+			id,
+			parent_id,
+			room_type,
+			reserve_quantity,
+			check_in_date,
+			check_out_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{roomType},
+			#{reserveQuantity},
+			#{checkInDate},
+			#{checkOutDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_test_site_hotel SET 	
+			parent_id = #{parentId},
+			room_type = #{roomType},
+			reserve_quantity = #{reserveQuantity},
+			check_in_date = #{checkInDate},
+			check_out_date = #{checkOutDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_test_site_hotel SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

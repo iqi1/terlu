@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlCustomBaseinfoDao">
+    
+	<sql id="tlCustomBaseinfoColumns">
+		a.id AS "id",
+		a.company_name AS "companyName",
+		a.start_date AS "startDate",
+		a.end_date AS "endDate",
+		a.address AS "address",
+		a.department AS "department",
+		a.telephone AS "telephone",
+		a.zip_code AS "zipCode",
+		a.fax AS "fax",
+		a.email AS "email",
+		a.project_leader AS "userAuthorizer.id",
+		b.name AS "userAuthorizer.name",
+		a.contact_number_l AS "contactNumberL",
+		a.email_l AS "emailL",
+		a.project_contact AS "userLeader.id",
+		c.name AS "userLeader.name",
+		a.contact_number_c AS "contactNumberC",
+		a.email_c AS "emailC",
+		a.proc_Ins_Id AS "procInsId",
+		a.market_Id AS "marketId",
+		a.field_Id  AS "fieldId",
+		d.name_ AS "procName",
+		e.mid  AS "weekName",
+		e.id   AS "weekId",
+		a.status AS "status",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlCustomBaseinfoJoins">
+		left join sys_user b on b.id = a.project_leader
+		left join sys_user c on c.id = a.project_contact
+		left join act_ru_task d on d.proc_inst_id_ = a.proc_Ins_Id
+		left join tl_main_schedule e on e.id = a.week_Id
+	</sql>
+    
+	<select id="get" resultType="TlCustomBaseinfo">
+		SELECT 
+			<include refid="tlCustomBaseinfoColumns"/>
+		FROM tl_custom_baseinfo a
+		<include refid="tlCustomBaseinfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlCustomBaseinfo">
+		SELECT 
+			<include refid="tlCustomBaseinfoColumns"/>
+		FROM tl_custom_baseinfo a
+		<include refid="tlCustomBaseinfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="companyName != null and companyName != ''">
+				AND a.company_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{companyName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND a.telephone LIKE 
+					<if test="dbName == 'oracle'">'%'||#{telephone}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{telephone}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{telephone},'%')</if>
+			</if>
+			<if test="userAuthorizer != null and userAuthorizer != ''">
+				AND a.project_leader LIKE 
+					<if test="dbName == 'oracle'">'%'||#{userAuthorizer.id}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{userAuthorizer.id}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{userAuthorizer.id},'%')</if>
+			</if>
+			<if test="userLeader != null and userLeader.id != ''">
+				AND a.project_contact LIKE 
+					<if test="dbName == 'oracle'">'%'||#{userLeader.id}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{userLeader.id}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{userLeader.id},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlCustomBaseinfo">
+		SELECT 
+			<include refid="tlCustomBaseinfoColumns"/>
+		FROM tl_custom_baseinfo a
+		<include refid="tlCustomBaseinfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_custom_baseinfo(
+			id,
+			company_name,
+			start_date,
+			end_date,
+			address,
+			department,
+			telephone,
+			zip_code,
+			fax,
+			email,
+			project_leader,
+			contact_number_l,
+			email_l,
+			project_contact,
+			contact_number_c,
+			email_c,
+			proc_ins_id,
+			market_Id,
+			field_Id,
+			status,
+			week_Id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{companyName},
+			#{startDate},
+			#{endDate},
+			#{address},
+			#{department},
+			#{telephone},
+			#{zipCode},
+			#{fax},
+			#{email},
+			#{userAuthorizer.id},
+			#{contactNumberL},
+			#{emailL},
+			#{userLeader.id},
+			#{contactNumberC},
+			#{emailC},
+			#{procInsId},
+			#{marketId},
+			#{fieldId},
+			#{status},
+			#{weekId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_custom_baseinfo SET 	
+			company_name = #{companyName},
+			start_date = #{startDate},
+			end_date = #{endDate},
+			address = #{address},
+			department = #{department},
+			telephone = #{telephone},
+			zip_code = #{zipCode},
+			fax = #{fax},
+			email = #{email},
+			project_leader = #{userAuthorizer.id},
+			contact_number_l = #{contactNumberL},
+			email_l = #{emailL},
+			project_contact = #{userLeader.id},
+			contact_number_c = #{contactNumberC},
+			email_c = #{emailC},
+			proc_ins_id = #{procInsId},
+			market_Id =	#{marketId},
+			field_Id = #{fieldId},
+			week_id = #{weekId},
+			status = #{status},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_custom_baseinfo SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

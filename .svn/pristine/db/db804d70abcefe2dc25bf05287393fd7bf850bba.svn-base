@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlInOutRecordDao">
+    
+	<sql id="tlInOutRecordColumns">
+		a.id AS "id",
+		a.road_gate_id AS "roadGateId",
+		a.card_id AS "cardId",
+		a.driver_id AS "driverId",
+		a.in_out AS "inOut",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		b.gate_num AS "roadGateNum",
+		d.name AS "driverName",
+		c.card_num AS "cardNum"
+	</sql>
+	
+	<sql id="tlInOutRecordJoins">
+		left join tl_road_gate b on b.id = a.road_gate_id 
+		left join tl_card_record c on c.id = a.card_id
+		left join tl_car_test_ground_driver d on d.id = a.driver_id 
+	</sql>
+    
+	<select id="get" resultType="TlInOutRecord">
+		SELECT 
+			<include refid="tlInOutRecordColumns"/>
+		FROM tl_in_out_record a
+		<include refid="tlInOutRecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlInOutRecord">
+		SELECT 
+			<include refid="tlInOutRecordColumns"/>
+		FROM tl_in_out_record a
+		<include refid="tlInOutRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="roadGateId != null and roadGateId != ''">
+				AND a.road_gate_id = #{roadGateId}
+			</if>
+			<if test="cardId != null and cardId != ''">
+				AND a.card_id = #{cardId}
+			</if>
+			<if test="driverId != null and driverId != ''">
+				AND a.driver_id = #{driverId}
+			</if>
+			<if test="inOut != null and inOut != ''">
+				AND a.in_out LIKE 
+					<if test="dbName == 'oracle'">'%'||#{inOut}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{inOut}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{inOut},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlInOutRecord">
+		SELECT 
+			<include refid="tlInOutRecordColumns"/>
+		FROM tl_in_out_record a
+		<include refid="tlInOutRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_in_out_record(
+			id,
+			road_gate_id,
+			card_id,
+			driver_id,
+			in_out,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{roadGateId},
+			#{cardId},
+			#{driverId},
+			#{inOut},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_in_out_record SET 	
+			road_gate_id = #{roadGateId},
+			card_id = #{cardId},
+			driver_id = #{driverId},
+			in_out = #{inOut},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_in_out_record SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

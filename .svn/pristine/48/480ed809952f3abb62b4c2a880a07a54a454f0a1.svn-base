@@ -1,0 +1,80 @@
+ *{
+ margin: 0px;
+ padding: 0px;
+ }
+ html,body{
+     width: 100%;
+     height: 100%;
+ }
+ .container{
+     width: 100%;
+     height: 100%;
+     text-align: center;
+     position:relative;
+ }
+ .header>h3{
+     color: black;
+ }
+ .wrapper{
+     width: 800px;
+     height: 1000px;
+     text-align: center;
+     left: 50%;
+     margin-left: -400px;
+     position: absolute;
+ }
+ .wrapper>table{
+     width:700px;
+     height:820px;
+     border: 2px solid black;
+     margin-left: 70px;
+ }
+ .oneLine{
+     height: 50px;
+ }
+ .oneLine>td,.threeLine>td{
+     border-bottom: 1px solid black;
+     border-right: 1px solid black;
+ }
+ .oneLine>td:nth-child(2n+1){
+     width: 15%;
+ }
+ .threeLine{
+     height:400px;
+ }
+ .threeTd,.fourTd{
+     position: relative;
+ }
+ .txt,.opinion{
+     left: 10px;
+     top:10px;
+     width: 130px;
+     position: absolute;
+ }
+ .opinion{
+     width: 130px;
+     margin-left: 10px;
+ }
+ .txtBottom,.sureUser{
+     left:15px;
+     width: 669px;
+     bottom: 10px;
+     position: absolute;
+ }
+ .txtBottom>span:nth-child(1){
+     margin-left: -10px;
+ }
+  .txtBottom>span:nth-child(3){
+     margin-left: 41%;
+ }
+  .sureUser>span:nth-child(1){
+     margin-left: -10px;
+ }
+  .sureUser>span:nth-child(3){
+     margin-left: 41%;
+ }
+ .year{
+     margin-left: 100px;
+ }
+
+ 

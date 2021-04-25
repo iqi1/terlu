@@ -1,0 +1,100 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	}
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 8px;
+	width: 80%;
+}
+textarea{
+	width:96%;
+	margin-left: 2%;
+	padding: 2px;
+}
+.textarea1{
+	height:70%;
+}
+.textarea2{
+	height:70%;
+}
+.textarea3{
+	height:60%;
+}
+.textarea4{
+	height:50%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+#head{
+		width: 100%;
+}
+table{
+	width: 756px;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+}
+.tr1{
+	height:50px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	text-align: center;
+}
+.tr2,.tr3,.tr4,.tr5{
+	height: 150px;
+}
+.tr6{
+	height: 200px;
+}
+.td4{
+	position: relative;
+}
+ .txt{
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	height: 20px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.people{
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+input[type=checkbox]{
+	width: 20px;
+}
+.spans{
+	margin-left: 200px;
+}
+.data{
+	margin-left: 50px;
+}
+.textarea2{
+	height: 50%;
+}
+.sure{
+	margin-left: 20px;
+}
+.resulte{
+	position: absolute;
+	bottom: 0px;
+}

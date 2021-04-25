@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlGpsTrailDao">
+    
+	<sql id="tlGpsTrailColumns">
+		a.id AS "id",
+		a.eid AS "eid",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.mileage AS "mileage",
+		a.test_road AS "testRoad",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlGpsTrailJoins">
+	</sql>
+    
+	<select id="get" resultType="TlGpsTrail">
+		SELECT 
+			<include refid="tlGpsTrailColumns"/>
+		FROM tl_gps_trail a
+		<include refid="tlGpsTrailJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlGpsTrail">
+		SELECT 
+			<include refid="tlGpsTrailColumns"/>
+		FROM tl_gps_trail a
+		<include refid="tlGpsTrailJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="eid != null and eid != ''">
+				AND a.eid LIKE 
+					<if test="dbName == 'oracle'">'%'||#{eid}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{eid}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{eid},'%')</if>
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{startTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{startTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{startTime},'%')</if>
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{endTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{endTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{endTime},'%')</if>
+			</if>
+			<if test="mileage != null and mileage != ''">
+				AND a.mileage LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mileage}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mileage}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mileage},'%')</if>
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road LIKE 
+					<if test="dbName == 'oracle'">'%'||#{testRoad}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{testRoad}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{testRoad},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlGpsTrail">
+		SELECT 
+			<include refid="tlGpsTrailColumns"/>
+		FROM tl_gps_trail a
+		<include refid="tlGpsTrailJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_gps_trail(
+			id,
+			eid,
+			start_time,
+			end_time,
+			mileage,
+			test_road,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{eid},
+			#{startTime},
+			#{endTime},
+			#{mileage},
+			#{testRoad},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_gps_trail SET 	
+			eid = #{eid},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			mileage = #{mileage},
+			test_road = #{testRoad},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_gps_trail SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

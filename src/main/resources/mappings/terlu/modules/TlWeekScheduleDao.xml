@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlWeekScheduleDao">
+    
+	<sql id="tlWeekScheduleColumns">
+		a.id AS "id",
+		a.msid AS "msid",
+		b.mid AS "mid", 
+		a.test_time AS "testTime",
+		a.car_num AS "carNum",
+		a.test_road AS "testRoad",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlWeekScheduleJoins">
+	left join tl_main_schedule b on b.id = a.msid 
+	</sql>
+    
+	<select id="get" resultType="TlWeekSchedule">
+		SELECT 
+			<include refid="tlWeekScheduleColumns"/>
+		FROM tl_week_schedule a
+		<include refid="tlWeekScheduleJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlWeekSchedule">
+		SELECT 
+			<include refid="tlWeekScheduleColumns"/>
+		FROM tl_week_schedule a
+		<include refid="tlWeekScheduleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="testTime != null and testTime != ''">
+				AND a.test_time LIKE 
+					<if test="dbName == 'oracle'">'%'||#{testTime}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{testTime}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{testTime},'%')</if>
+			</if>
+			<if test="carNum != null and carNum != ''">
+				AND a.car_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{carNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{carNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{carNum},'%')</if>
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road LIKE 
+					<if test="dbName == 'oracle'">'%'||#{testRoad}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{testRoad}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{testRoad},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlWeekSchedule">
+		SELECT 
+			<include refid="tlWeekScheduleColumns"/>
+		FROM tl_week_schedule a
+		<include refid="tlWeekScheduleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_week_schedule(
+			id,
+			msid,
+			test_time,
+			car_num,
+			test_road,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{msid},
+			#{testTime},
+			#{carNum},
+			#{testRoad},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_week_schedule SET 
+			msid = #{msid},	
+			test_time = #{testTime},
+			car_num = #{carNum},
+			test_road = #{testRoad},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_week_schedule SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

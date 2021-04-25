@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TsAppointmentDao">
+    
+	<sql id="tsAppointmentColumns">
+		a.id AS "id",
+		a.unit_name AS "unitName",
+		a.contact_name AS "contactName",
+		a.email AS "email",
+		a.phone AS "phone",
+		a.mobile AS "mobile",
+		a.sex AS "sex",
+		a.in_date AS "inDate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tsAppointmentJoins">
+	</sql>
+    
+	<select id="get" resultType="TsAppointment">
+		SELECT 
+			<include refid="tsAppointmentColumns"/>
+		FROM ts_appointment a
+		<include refid="tsAppointmentJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TsAppointment">
+		SELECT 
+			<include refid="tsAppointmentColumns"/>
+		FROM ts_appointment a
+		<include refid="tsAppointmentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="unitName != null and unitName != ''">
+				AND a.unit_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{unitName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{unitName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{unitName},'%')</if>
+			</if>
+			<if test="contactName != null and contactName != ''">
+				AND a.contact_name = #{contactName}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND a.mobile = #{mobile}
+			</if>
+			<if test="sex != null and sex != ''">
+				AND a.sex = #{sex}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TsAppointment">
+		SELECT 
+			<include refid="tsAppointmentColumns"/>
+		FROM ts_appointment a
+		<include refid="tsAppointmentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ts_appointment(
+			id,
+			unit_name,
+			contact_name,
+			email,
+			phone,
+			mobile,
+			sex,
+			in_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{unitName},
+			#{contactName},
+			#{email},
+			#{phone},
+			#{mobile},
+			#{sex},
+			#{inDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ts_appointment SET 	
+			unit_name = #{unitName},
+			contact_name = #{contactName},
+			email = #{email},
+			phone = #{phone},
+			mobile = #{mobile},
+			sex = #{sex},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE ts_appointment SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

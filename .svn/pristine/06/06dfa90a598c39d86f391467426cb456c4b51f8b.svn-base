@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlTestTaskListDao">
+    
+	<sql id="tlTestTaskListColumns">
+		a.id AS "id",
+		a.project_id AS "projectId",
+		a.driver_id AS "driverId",
+		a.bao_chang AS "isBaoChang",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		b.test_road AS "testRoad",
+		u3.name AS "driverName",
+		c.company_name AS "companyName",
+		c.is_Modify AS "isModify"
+	</sql>
+	
+	<sql id="subTables">
+		(
+		SELECT a.`id`,a.`test_road`,a.`tl_testproject_id` pid,0 bc FROM tl_testproject_child a
+		UNION ALL
+		SELECT b.`id`,b.`test_road`,b.tl_custom_baseinfo_id pid,1 bc FROM tl_test_room_reservation_child b
+		) 
+	</sql>
+	
+	<sql id="tlTestTaskListJoins">
+		LEFT JOIN tl_car_test_ground_driver u3 ON u3.id = a.driver_id
+		LEFT JOIN  
+			<include refid="subTables"/> b
+	    ON a.project_id = b.id and  b.bc = a.bao_chang
+		RIGHT JOIN 
+		(    
+		SELECT a.id, a.company_name ,a.project_contact,
+		CASE (d.name_  = '场地科审核' AND a.`PROC_INS_ID` IS  NOT NULL) OR (d.name_ IS NULL AND a.`PROC_INS_ID` IS  NOT NULL)  WHEN 1 THEN 0 ELSE 1 END  is_Modify  
+		FROM tl_custom_baseinfo  a
+		LEFT JOIN act_ru_task d ON d.proc_inst_id_ = a.proc_Ins_Id
+		) c ON c.id = b.pid
+	</sql>
+    
+	<select id="get" resultType="TlTestTaskList">
+		SELECT 
+			<include refid="tlTestTaskListColumns"/>
+		FROM tl_test_task_list a
+		<include refid="tlTestTaskListJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlTestTaskList">
+		SELECT 
+			<include refid="tlTestTaskListColumns"/>
+		FROM tl_test_task_list a
+		<include refid="tlTestTaskListJoins"/>
+		<if test="userId != null and userId != ''">
+				AND c.project_contact = #{userId}
+		</if>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="driverId != null and driverId != ''">
+				AND a.driver_id = #{driverId}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				AND c.id = #{parentId}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time = #{endTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY b.pid,b.bc,b.test_road ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlTestTaskList">
+		SELECT 
+			<include refid="tlTestTaskListColumns"/>
+		FROM tl_test_task_list a
+		<include refid="tlTestTaskListJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_test_task_list(
+			id,
+			project_id,
+			driver_id,
+			bao_chang,
+			start_time,
+			end_time,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{projectId},
+			#{driverId},
+			#{isBaoChang},
+			#{startTime},
+			#{endTime},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_test_task_list SET 	
+			project_id = #{projectId},
+			driver_id = #{driverId},
+			bao_chang = #{isBaoChang},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_test_task_list SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

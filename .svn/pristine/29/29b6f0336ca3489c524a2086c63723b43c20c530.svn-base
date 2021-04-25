@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlDriverZjDao">
+    
+	<sql id="tlDriverZjColumns">
+		a.id AS "id",
+		a.tel AS "tel",
+		a.idcard_photo AS "idcardPhoto",
+		a.name AS "name",
+		a.nation AS "nation",
+		a.address AS "address",
+		a.IDcard AS "IDcard",
+		a.birth AS "birth",
+		a.sex AS "sex",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlDriverZjJoins">
+	</sql>
+    
+	<select id="get" resultType="TlDriverZj">
+		SELECT 
+			<include refid="tlDriverZjColumns"/>
+		FROM tl_driver_zj a
+		<include refid="tlDriverZjJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlDriverZj">
+		SELECT 
+			<include refid="tlDriverZjColumns"/>
+		FROM tl_driver_zj a
+		<include refid="tlDriverZjJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlDriverZj">
+		SELECT 
+			<include refid="tlDriverZjColumns"/>
+		FROM tl_driver_zj a
+		<include refid="tlDriverZjJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_driver_zj(
+			id,
+			tel,
+			idcard_photo,
+			name,
+			nation,
+			address,
+			IDcard,
+			birth,
+			sex,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{idcardPhoto},
+			#{tel},
+			#{name},
+			#{nation},
+			#{address},
+			#{IDcard},
+			#{birth},
+			#{sex},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_driver_zj SET 	
+			tel =#{tel},
+			idcard_photo = #{idcardPhoto},
+			name = #{name},
+			nation = #{nation},
+			address = #{address},
+			IDcard = #{IDcard},
+			birth = #{birth},
+			sex = #{sex},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_driver_zj SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

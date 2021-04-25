@@ -1,0 +1,359 @@
+.sampleRegister-content{
+	width:1200px;
+	left:20px;
+	top:20px;
+	position:absolute;
+}
+
+.container{
+	font-size: 12px;
+	color: #555;
+	width: 1050px;
+	height: 600px;
+}
+.container>tr:nth-child(2n+1) {
+	background-color: #f5f5f5;
+}
+
+.event {
+	background: white;
+}
+
+.odd {
+	background: red;
+}
+
+.moreSampleCheck {
+	width: 99%;
+	height: 135px;
+	border: 1px solid #BBBBBB;
+	border-radius: 4px;
+	margin-left: 0.5%;
+	margin-top: 10px;
+	clear: both;
+}
+
+.moreSampleCheck>ul>li {
+	float: left;
+	list-style: none;
+}
+
+.moreSampleCheck>ul>li:nth-child(2n+1) {
+	background-color: #ffffe1;
+	width: 9.2%;
+	height: 40px;
+	border: 1px solid #BBBBBB;
+	display: inline-block;
+	text-align: center;
+	line-height: 35px;
+	margin-top: 2px;
+}
+
+.moreSampleCheck>ul {
+	margin-left: 2px;
+}
+
+.moreSampleCheck>ul>li:nth-child(2n) {
+	background-color: white;
+	display: inline-block;
+	width: 124.5px;
+	height: 40px;
+	text-align: center;
+	margin-top: 2px;
+	border-bottom: 1px solid #BBBBBB;
+	border-top: 1px solid #BBBBBB;
+}
+
+.moreSampleCheck>ul>li>input {
+	width: 80px;
+	height: 18px;
+	margin-top: 4px;
+	line-height: 20px;
+	background: white;
+}
+
+.information {
+	width: 99%;
+	height:400px;
+	border: 1px solid #BBBBBB;
+	margin-top: 10px;
+	box-shadow: 0.5px 0.5px 0.5px 0.5px #BBBBBB;
+	margin-left: 0.5%;
+	border-radius: 4px;
+	clear: both;
+	overflow: scroll;
+}
+
+.information-left {
+	width: 49%;
+	height: 100%;
+	border-right: 1px solid #BBBBBB;
+	float: left;
+}
+
+.information-left>.first,.second {
+	clear: both;
+	width: 100%;
+	height: 59px;
+	background: #dddddd;
+	margin-left: 0px;
+}
+
+.first>li {
+	list-style: none;
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.second {
+	margin-top: -2px;
+}
+.second>li {
+	width:8.83%;
+	list-style: none;
+	float: left;
+	height:98%;	border-left: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	text-align: center;
+}
+.second>li:hover,.four>li:hover {
+	background: #e0ecff;
+}
+
+.information-right {
+	width: 49%;
+	height: 100%;
+	float: left;
+}
+
+.three {
+	clear: both;
+	background: #dddddd;
+	width: 880px;
+	height: 41px;
+	margin-left: 0px;
+	border-bottom:1px solid #ccc;
+}
+
+.sampleLier{
+    clear: both;
+	background: #dddddd;
+	width: 698px;
+	height: 48px;
+	margin-left: 0px;
+}
+
+.sampleLier>li{
+    float: left;
+	list-style: none;
+	height: 47px;
+	font-size: 12px;
+	border-right: 1px solid #ccc;
+}
+.sampleLier>li:nth(1),
+.sampleLier>li:nth(2),
+.sampleLier>li:nth(3),
+.sampleLier>li:nth(4),
+.sampleLier>li:nth(5),
+.sampleLier>li:nth(6),
+.sampleLier>li:nth(7){
+    line-height:50px;
+}
+
+.sampleLier{
+    clear: both;
+	background: #dddddd;
+	width: 880px;
+	height: 76px;
+	margin-left: 0px;
+}
+
+.sampleLier>li{
+    float: left;
+	list-style: none;
+	height: 76px;
+	font-size: 12px;
+	border-right: 1px solid #ccc;
+	padding:0px 0.5px;
+	width:40px;
+	text-align:center;
+}
+.sampleLier>li:nth(1),
+.sampleLier>li:nth(2),
+.sampleLier>li:nth(3),
+.sampleLier>li:nth(4),
+.sampleLier>li:nth(5),
+.sampleLier>li:nth(6),
+.sampleLier>li:nth(7){
+    line-height:97px;
+}
+
+.three>li {
+	float: left;
+	list-style: none;
+	height: 41px;
+	line-height: 50px;
+	font-size: 12px;
+	border-right: 1px solid #ccc;
+}
+
+.three>li:hover {
+	text-decoration: underline;
+}
+.three>li>a{
+	padding:4px;
+}
+.three>li>a:hover {
+	color:red;
+}
+.four {
+	clear: both;
+	width: 880px;
+	margin-left: 0px;
+	margin-top: 0px;
+	height: 27px;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+}
+
+.four>li {
+	list-style: none;
+	float: left;
+	border-right: 1px solid #ccc;
+	height: 30px;
+	padding:0px 3px;
+	width:35px;
+	text-align:center;
+}
+
+.keep {
+	clear: both;
+}
+
+.keep>li {
+	list-style: none;
+	float: right;
+	margin-right: 10px;
+	margin-top:25px;
+}
+
+.col-x {
+	clear: both;
+	margin-left: -0px;
+	margin-top: -9px;
+}
+
+.col-x>li {
+	float: left;
+	list-style: none;
+}
+
+.col-x>li>input {
+	border-radius: 0px;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.col-x>li>select {
+	width: 50px;
+	border-radius: 0px;
+}
+
+.appendTable {
+	clear: both;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.appendTable>li {
+	float: left;
+	list-style: none;
+	width:9%;
+	height:29px;
+	
+}
+.appendTable>li:last-child{
+	border: 1px solid #ccc;
+	margin-left: 3px;
+	background: white;
+	height: 27px;
+	margin-left:3px;
+}
+.appendTable>li:last-child>a{
+	margin-left: 10px;
+	line-height: 30px;
+}
+.appendTable>li>input {
+	width: 100%;
+	height: 19px;
+	margin: 0;
+	border-radius:0px;
+	padding:4px 2px;
+}
+
+.appendTable>li>select {
+	width: 50px;
+	height: 19px;
+}
+
+.overflow {
+	width: 60px;
+}
+.isEmpty{
+	width: 270%;
+	height: 50px;
+	background: #ddd;
+	border-bottom: 1px solid #ccc;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+ul li{
+list-style:none;
+}
+.contextMenu{
+	width: 698px;
+	height:50px;
+	background: #ddd;
+}
+.contextMenu>ul{
+	clear: both;
+}
+.contextMenu>ul>li{
+	float: left;
+	line-height: 50px;
+	border-right: 1px solid #ccc;
+	padding: 0px 2px;
+}
+.btner{
+	position:absolute;
+	right:30px;
+	margin-top:10px;
+}
+.btner>span:nth-child(2){
+	margin-left:10px;
+}
+#dialog label, #dialog input { 
+	display:block; 
+}
+#dialog label { 
+	margin-top: 0.5em; 
+}
+#dialog input, #dialog textarea {
+	width: 95%;
+}
+#tabs {
+	margin-top: 1em;
+}
+#tabs li .ui-icon-close { 
+	float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; 
+}
+#add_tab { 
+	cursor: pointer; 
+}

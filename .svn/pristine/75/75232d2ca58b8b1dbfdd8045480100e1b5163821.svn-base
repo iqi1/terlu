@@ -1,0 +1,111 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.container{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position:relative;
+}
+.header>h3{
+    color: black;
+}
+.wrapper{
+    width: 800px;
+    height: 1000px;
+    text-align: center;
+    left: 50%;
+    margin-left: -400px;
+    position: absolute;
+}
+.wrapper>table{
+    width:700px;
+    height:820px;
+    border: 2px solid black;
+    margin-left: 70px;
+}
+.sameOne>td,.sameThree>td{
+    border-bottom: 1px solid black;
+}
+.sameOne>td:nth-child(2n+1),.sameThree>td:nth-child(2n+1){
+    border-right: 1px solid black;
+}
+.sameThree>td:nth-child(3){
+    border-left: 1px solid black;
+}
+.sameOne,.sameThree{
+    height:50px;
+}
+.sameOne>td{
+    width: 15%;
+}
+.sameThree>td{
+    width: 15%;
+}
+.sameThree>td:nth-child(4){
+    border-right:2px solid black;
+}
+.example{
+    height: 200px;
+}
+.example>td{
+    border-bottom: 1px solid black;
+    border-right:2px solid black;
+    position: relative;
+}
+.example>td>p{
+    position: absolute;
+    left: 10px;
+    top:10px;
+}
+.example>td>textarea{
+    height:80%;
+    width:75%;
+    padding-left:2px;
+    left:120px;
+    position:absolute;
+    top:20px;
+}
+.lastTr>td:nth-child(1){
+    border-right: 1px solid black;
+    position: relative;
+}
+.lastTr>td:nth-child(2){
+    position: relative;
+    border-right:2px solid black;
+}
+.lastTr>td:nth-child(1)>p:nth-child(1){
+    position: absolute;
+    left: 10px;
+    top:10px;
+}
+.lastTr>td:nth-child(1)>p:nth-child(2){
+    position: absolute;
+    right: 10px;
+    bottom:10px;
+}
+.lastTr>td:nth-child(2)>p:nth-child(1){
+    position: absolute;
+    left: 10px;
+    top:10px;
+}
+.lastTr>td:nth-child(2)>p:nth-child(2){
+    position: absolute;
+    right: 10px;
+    bottom:10px;
+}
+.allSave{
+    font-size: 12px;
+    line-height: 20px;
+}
+.title>span:nth-child(1){
+	margin-left:-10px;
+}
+.title>span:nth-child(2){
+	margin-left:40%;
+}

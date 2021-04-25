@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlSendAddressDao">
+    
+	<sql id="tlSendAddressColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.send_address AS "sendAddress",
+		a.zip_code AS "zipCode",
+		a.tel_send AS "telSend",
+		a.sender_name AS "senderName",
+		a.receiver_name AS "receiverName",
+		a.sender_company AS "senderCompany",
+		a.receiver_company AS "receiverCompany",
+		a.tel_sender AS "telSender",
+		a.tel_receiver AS "telReceiver",
+		a.assistant_name AS "assistantName",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlSendAddressJoins">
+	</sql>
+    
+	<select id="get" resultType="TlSendAddress">
+		SELECT 
+			<include refid="tlSendAddressColumns"/>
+		FROM tl_send_address a
+		<include refid="tlSendAddressJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlSendAddress">
+		SELECT 
+			<include refid="tlSendAddressColumns"/>
+		FROM tl_send_address a
+		<include refid="tlSendAddressJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="senderName != null and senderName != ''">
+				AND a.sender_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{senderName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{senderName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{senderName},'%')</if>
+			</if>
+			<if test="telSender != null and telSender != ''">
+				AND a.tel_sender LIKE 
+					<if test="dbName == 'oracle'">'%'||#{telSender}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{telSender}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{telSender},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlSendAddress">
+		SELECT 
+			<include refid="tlSendAddressColumns"/>
+		FROM tl_send_address a
+		<include refid="tlSendAddressJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_send_address(
+			id,
+			parent_id,
+			send_address,
+			zip_code,
+			tel_send,
+			sender_name,
+			receiver_name,
+			sender_company,
+			receiver_company,
+			tel_sender,
+			tel_receiver,
+			assistant_name,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{sendAddress},
+			#{zipCode},
+			#{telSend},
+			#{senderName},
+			#{receiverName},
+			#{senderCompany},
+			#{receiverCompany},
+			#{telSender},
+			#{telReceiver},
+			#{assistantName},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_send_address SET 	
+			parent_id = #{parentId},
+			send_address = #{sendAddress},
+			zip_code = #{zipCode},
+			tel_send = #{telSend},
+			sender_name = #{senderName},
+			receiver_name = #{receiverName},
+			sender_company = #{senderCompany},
+			receiver_company = #{receiverCompany},
+			tel_sender = #{telSender},
+			tel_receiver = #{telReceiver},
+			assistant_name = #{assistantName},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_send_address SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

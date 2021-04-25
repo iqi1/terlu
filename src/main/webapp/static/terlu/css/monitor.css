@@ -1,0 +1,116 @@
+h3{
+	text-align: center;
+	color:black;
+}
+p{
+	text-align: center;
+	margin: 0px;
+}
+table{
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+td{
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	}
+input{
+	/*border: 0px;*/
+	margin: 0px;
+	padding: 0px;
+}
+
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#head{
+	margin: 0px;
+	margin-bottom: 5px;
+}
+.center{
+	text-align: center;
+}
+.right{
+	text-align: right;
+}
+.left{
+	text-align: left;
+}
+.Dh{
+	border:0px;
+	border-left: 1px solid black;
+}
+.w-l{
+	border-left: 0px;
+}
+.w-r{
+	border-right: 0px;
+}
+.bottom-b{
+	border-bottom: 1px solid black;
+}
+.small{
+	font-size: 12px;
+}
+.tr1{
+	height: 0px;
+}
+.td11{
+	height: 0px;
+	width: 64px;
+	border: 0px;
+}
+.td12{
+	height: 0px;
+	width: 97px;
+	border: 0px;
+}
+.td13{
+	height: 0px;
+	width: 532px;
+}
+.tr2{
+	height: 46px;
+}
+.tr3{
+	height: 99px;
+}
+.tr4{
+	height: 84px;
+}
+.tr5{
+	height: 188px;
+}
+.tr6{
+	height: 178px;
+}
+.tr7{
+	height: 181px;
+}
+.td31{
+	text-align: left;
+	width: 462px;
+}
+.input-last{
+	height: 20px;
+	width: 180px;
+}
+input{
+	width: 80%;
+}
+#assayitemName{
+	width:120px;
+}

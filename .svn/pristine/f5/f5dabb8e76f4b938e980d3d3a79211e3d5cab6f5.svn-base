@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlTestRoomReservationChildDao">
+    
+	<sql id="tlTestRoomReservationChildColumns">
+		a.id AS "id",
+		a.tl_custom_baseinfo_id AS "tlCustomBaseinfoId",
+		a.tl_test_room_reservation_id AS "tlTestRoomReservationId",
+		a.test_road AS "testRoad",
+		a.package_date AS "packageDate",
+		a.package_time AS "packageTime",
+		a.car_lim_num AS "carLimNum",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlTestRoomReservationChildJoins">
+	</sql>
+    
+	<select id="get" resultType="TlTestRoomReservationChild">
+		SELECT 
+			<include refid="tlTestRoomReservationChildColumns"/>
+		FROM tl_test_room_reservation_child a
+		<include refid="tlTestRoomReservationChildJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlTestRoomReservationChild">
+		SELECT 
+			<include refid="tlTestRoomReservationChildColumns"/>
+		FROM tl_test_room_reservation_child a
+		<include refid="tlTestRoomReservationChildJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="tlCustomBaseinfoId != null and tlCustomBaseinfoId != ''">
+				AND a.tl_custom_baseinfo_id =  #{tlCustomBaseinfoId}
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road LIKE 
+					<if test="dbName == 'oracle'">'%'||#{testRoad}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{testRoad}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{testRoad},'%')</if>
+			</if>
+			<if test="packageDate != null and packageDate != ''">
+				AND a.package_date LIKE 
+					<if test="dbName == 'oracle'">'%'||#{packageDate}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{packageDate}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{packageDate},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlTestRoomReservationChild">
+		SELECT 
+			<include refid="tlTestRoomReservationChildColumns"/>
+		FROM tl_test_room_reservation_child a
+		<include refid="tlTestRoomReservationChildJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_test_room_reservation_child(
+			id,
+			tl_custom_baseinfo_id,
+			tl_test_room_reservation_id,
+			test_road,
+			package_date,
+			package_time,
+			car_lim_num,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{tlCustomBaseinfoId},
+			#{tlTestRoomReservationId},
+			#{testRoad},
+			#{packageDate},
+			#{packageTime},
+			#{carLimNum},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_test_room_reservation_child SET 	
+			tl_custom_baseinfo_id = #{tlCustomBaseinfoId},
+			tl_test_room_reservation_id = #{tlTestRoomReservationId},
+			test_road = #{testRoad},
+			package_date = #{packageDate},
+			package_time = #{packageTime},
+			car_lim_num = #{carLimNum},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_test_room_reservation_child SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

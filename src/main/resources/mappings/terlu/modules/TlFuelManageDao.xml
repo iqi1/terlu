@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlFuelManageDao">
+    
+	<sql id="tlFuelManageColumns">
+		a.id AS "id",
+		<!-- a.parent_id AS "parentId", -->
+		a.project AS "project",
+		a.test_road AS "testRoad",
+		a.lead_tester AS "leadTester", 
+		a.fuel_type AS "fuelType",
+		a.consume AS "consume",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		<!-- a.status AS "status", -->
+		a.del_flag AS "delFlag",
+		<!-- b.test_road AS "testRoad", -->
+		c.company_name AS "companyName"
+		<!-- a.proc_Ins_Id AS "procInsId",
+		d.name_ AS "procName" -->
+	</sql>
+	
+	<sql id="tlFuelManageJoins">
+		LEFT JOIN tl_custom_baseinfo c ON c.id = a.project
+	</sql>
+	
+	<!-- <sql id="subTables">
+		(
+		SELECT a.`id`,a.`test_road`,a.`tl_testproject_id` pid,0 bc FROM tl_testproject_child a
+		UNION ALL
+		SELECT b.`id`,b.`test_road`,b.tl_custom_baseinfo_id pid,1 bc FROM tl_test_room_reservation_child b
+		) 
+	</sql>
+	
+	<sql id="tlFuelManageJoins">
+		left join act_ru_task d on d.proc_inst_id_ = a.proc_Ins_Id
+		LEFT JOIN  <include refid="subTables"/> b
+	    ON a.project = b.id
+		RIGHT JOIN tl_custom_baseinfo c ON c.id = b.pid
+	</sql> -->
+    
+	<select id="get" resultType="TlFuelManage">
+		SELECT 
+			<include refid="tlFuelManageColumns"/>
+		FROM tl_fuel_manage a
+		<include refid="tlFuelManageJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlFuelManage">
+		SELECT 
+			<include refid="tlFuelManageColumns"/>
+		FROM tl_fuel_manage a
+		<include refid="tlFuelManageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<!-- <if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if> -->
+			<if test="project != null and project != ''">
+				AND a.project = #{project}
+			</if>
+			<if test="leadTester != null and leadTester != ''">
+				AND a.lead_tester = #{leadTester}
+			</if>
+			<if test="fuelType != null and fuelType != ''">
+				AND a.fuel_type = #{fuelType}
+			</if>
+			<if test="consume != null and consume != ''">
+				AND a.consume = #{consume}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlFuelManage">
+		SELECT 
+			<include refid="tlFuelManageColumns"/>
+		FROM tl_fuel_manage a
+		<include refid="tlFuelManageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_fuel_manage(
+			id,
+			<!-- parent_id, -->
+			project,
+			test_road,
+			lead_tester,
+			fuel_type,
+			consume,
+			<!-- proc_ins_id, -->
+			<!-- status, -->
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			<!-- #{parentId}, -->
+			#{project},
+			#{testRoad},
+			#{leadTester},
+			#{fuelType},
+			#{consume},
+			<!-- #{procInsId}, -->
+			<!-- #{status}, -->
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_fuel_manage SET 	
+			<!-- parent_id = #{parentId}, -->
+			project = #{project},
+			test_road = #{testRoad},
+			lead_tester = #{leadTester},
+			fuel_type = #{fuelType},
+			consume = #{consume},
+			<!-- proc_ins_id = #{procInsId}, -->
+			<!-- status = #{status}, -->
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_fuel_manage SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

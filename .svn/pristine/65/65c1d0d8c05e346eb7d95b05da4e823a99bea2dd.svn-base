@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlStaticWriteEqDao">
+    
+	<sql id="tlStaticWriteEqColumns">
+		a.id AS "id",
+		a.eq_num AS "eqNum",
+		a.sim_num AS "simNum",
+		a.sim_pay_record AS "simPayRecord",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlStaticWriteEqJoins">
+	</sql>
+    
+	<select id="get" resultType="TlStaticWriteEq">
+		SELECT 
+			<include refid="tlStaticWriteEqColumns"/>
+		FROM tl_static_write_eq a
+		<include refid="tlStaticWriteEqJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlStaticWriteEq">
+		SELECT 
+			<include refid="tlStaticWriteEqColumns"/>
+		FROM tl_static_write_eq a
+		<include refid="tlStaticWriteEqJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="eqNum != null and eqNum != ''">
+				AND a.eq_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{eqNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{eqNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{eqNum},'%')</if>
+			</if>
+			<if test="simNum != null and simNum != ''">
+				AND a.sim_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{simNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{simNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{simNum},'%')</if>
+			</if>
+			<if test="simPayRecord != null and simPayRecord != ''">
+				AND a.sim_pay_record LIKE 
+					<if test="dbName == 'oracle'">'%'||#{simPayRecord}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{simPayRecord}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{simPayRecord},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlStaticWriteEq">
+		SELECT 
+			<include refid="tlStaticWriteEqColumns"/>
+		FROM tl_static_write_eq a
+		<include refid="tlStaticWriteEqJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_static_write_eq(
+			id,
+			eq_num,
+			sim_num,
+			sim_pay_record,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{eqNum},
+			#{simNum},
+			#{simPayRecord},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_static_write_eq SET 	
+			eq_num = #{eqNum},
+			sim_num = #{simNum},
+			sim_pay_record = #{simPayRecord},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_static_write_eq SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

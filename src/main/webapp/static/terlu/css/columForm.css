@@ -1,0 +1,62 @@
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	width: 90%;
+}
+textarea{
+	width:90%;
+	height: 94%;
+	text-align: center;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#head{
+		width: 100%;
+}
+table{
+	width: 756px;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+	text-align: center;
+}
+.tr1,.tr2{
+	height:50px;
+}
+.tr1>td{
+	text-align: center;
+}
+.tr3{
+	height: 900px;
+}
+.txt{
+	position: relative;
+}
+.txt>span:nth-child(1){
+	left: 0px;
+	position: absolute;
+	left:10px;
+}
+.txt>span:nth-child(2){
+	right:0px;
+	position: absolute;
+}
+.td2,.td5{
+	width: 150px;
+}

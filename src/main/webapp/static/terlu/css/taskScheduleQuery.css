@@ -1,0 +1,33 @@
+.breadcrumb{
+    height: 70px;
+    position: relative;
+}
+.ul-form{
+    position:absolute;
+    margin-top:-20px;
+    margin-left:-32px;
+}
+.ul-form>li:nth-child(2)>input,
+.ul-form>li:nth-child(3)>input,
+.ul-form>li:nth-child(4)>input,
+.ul-form>li:nth-child(5)>input
+{
+    width: 80px;
+}
+.ul-form>li:nth-child(6)>input,
+.ul-form>li:nth-child(7)>input
+{
+    margin-left:10px;
+    width:65px;
+}
+.ul-form>li:nth-child(8)>input,
+.ul-form>li:nth-child(9)>input,
+.ul-form>li:nth-child(10)>input,
+.ul-form>li:nth-child(11)>input{
+	 margin-left:10px;
+}
+
+
+#contentTable>tbody>td:nth-child(1){
+    width: 30px;
+}

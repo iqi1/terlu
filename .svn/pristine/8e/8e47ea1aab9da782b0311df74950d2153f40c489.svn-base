@@ -1,0 +1,81 @@
+.pane{
+	width: 288px;
+	height: 197px;
+	border:1px solid #95B8E7;
+	top:50px;
+	left:395px;
+	position:absolute;
+	background-color:#e0ecff;
+	clear:both;
+	display: none;
+}
+  .pane-title{
+	font-size:12px;
+	font-weight:bold;
+	color:#0e2d5f;
+	height:16px;
+	line-height:22px;
+	margin-left:10px;
+	height:22px;
+  }
+.closed{
+	width: 20px;
+	height: 20px;
+	display: block;
+	background-color:orange;
+	text-align: center;
+	float: right;
+	margin-right:1px;
+	margin-top: 1px;
+	border-radius: 4px;
+ 	}
+.closed:hover{
+    background-color: #f60;
+}
+.pane-body{
+	width:97%;
+	margin-left:1%;
+	height:67%;
+	border:1px solid #95B8E7;
+	background-color:white;
+}
+.pane-body>p{
+	margin-left:10px;
+	line-height:30px;
+}
+
+.delBtn{
+	float:right;
+	margin-right:10px;
+  	}
+.taskShow{
+	width: 217px;
+	height: 197px;
+	border:1px solid #95B8E7;
+	top:50px;
+	left:395px;
+	position:absolute;
+	background-color:#e0ecff;
+	clear:both;
+	display: none;
+}
+.detection{
+	border-top:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-left:1px solid #ddd;
+	background-color:#e0ecff;
+	width:60px;
+	text-align:left;
+	color:black;
+	display: none;
+	position:absolute;
+	margin-left: 10%;
+	}
+.detection >ul{
+	list-style:none;
+	margin:0px
+}
+.detection >ul>li{
+	text-align: center;
+	border-bottom:1px solid #ccc;
+}

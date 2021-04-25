@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlContractDao">
+    
+	<sql id="tlContractColumns">
+		a.id AS "id",
+		a.apply_type AS "applyType",
+		a.change_type AS "changeType",
+		a.change_reason AS "changeReason",
+		a.apply_id AS "applyId",
+		a.original_contract_id AS "originalContractId",
+		a.contract_code AS "contractCode",
+		a.contract_name AS "contractName",
+		a.contract_desc AS "contractDesc",
+		a.version AS "version",
+		a.contract_type AS "contractType",
+		a.contract_property AS "contractProperty",
+		a.contract_nature AS "contractNature",
+		a.total_amount AS "totalAmount",
+		a.project_type AS "projectType",
+		a.created_by_userid AS "createdByUserid",
+		a.created_by AS "createdBy",
+		a.sign_dept_num AS "signDeptNum",
+		a.sign_dept AS "signDept",
+		a.sign_email AS "signEmail",
+		a.sign_mobile AS "signMobile",
+		a.formal_contract AS "formalContract",
+		a.related_contract AS "relatedContract",
+		a.company_name AS "companyName",
+		a.company_code AS "companyCode",
+		a.supplier_name AS "supplierName",
+		a.supplier_code AS "supplierCode",
+		a.country_taxpayer_number AS "countryTaxpayerNumber",
+		a.local_taxpayer_number AS "localTaxpayerNumber",
+		a.contract_person_name AS "contractPersonName",
+		a.contract_person_post AS "contractPersonPost",
+		a.contract_person_email AS "contractPersonEmail",
+		a.contract_person_tel AS "contractPersonTel",
+		a.registered_address AS "registeredAddress",
+		a.bank_code AS "bankCode",
+		a.bank_account_num AS "bankAccountNum",
+		a.open_bank AS "openBank",
+		a.pay_settle_mode AS "paySettleMode",
+		a.pay_settle_rate AS "paySettleRate",
+		a.pay_settle_method AS "paySettleMethod",
+		a.acceptance_date AS "acceptanceDate",
+		a.status AS "status",
+		a.is_valid AS "isValid",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlContractJoins">
+	</sql>
+    
+	<select id="get" resultType="TlContract">
+		SELECT 
+			<include refid="tlContractColumns"/>
+		FROM tl_contract a
+		<include refid="tlContractJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlContract">
+		SELECT 
+			<include refid="tlContractColumns"/>
+		FROM tl_contract a
+		<include refid="tlContractJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="applyType != null and applyType != ''">
+				AND a.apply_type LIKE 
+					<if test="dbName == 'oracle'">'%'||#{applyType}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{applyType}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{applyType},'%')</if>
+			</if>
+			<if test="applyId != null and applyId != ''">
+				AND a.apply_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{applyId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{applyId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{applyId},'%')</if>
+			</if>
+			<if test="contractCode != null and contractCode != ''">
+				AND a.contract_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{contractCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{contractCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{contractCode},'%')</if>
+			</if>
+			<if test="relatedContract != null and relatedContract != ''">
+				AND a.related_contract LIKE 
+					<if test="dbName == 'oracle'">'%'||#{relatedContract}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{relatedContract}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{relatedContract},'%')</if>
+			</if>
+			<if test="beginSupplierName != null and endSupplierName != null and beginSupplierName != '' and endSupplierName != ''">
+				AND a.supplier_name BETWEEN #{beginSupplierName} AND #{endSupplierName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlContract">
+		SELECT 
+			<include refid="tlContractColumns"/>
+		FROM tl_contract a
+		<include refid="tlContractJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_contract(
+			id,
+			apply_type,
+			change_type,
+			change_reason,
+			apply_id,
+			original_contract_id,
+			contract_code,
+			contract_name,
+			contract_desc,
+			version,
+			contract_type,
+			contract_property,
+			contract_nature,
+			total_amount,
+			project_type,
+			created_by_userid,
+			created_by,
+			sign_dept_num,
+			sign_dept,
+			sign_email,
+			sign_mobile,
+			formal_contract,
+			related_contract,
+			company_name,
+			company_code,
+			supplier_name,
+			supplier_code,
+			country_taxpayer_number,
+			local_taxpayer_number,
+			contract_person_name,
+			contract_person_post,
+			contract_person_email,
+			contract_person_tel,
+			registered_address,
+			bank_code,
+			bank_account_num,
+			open_bank,
+			pay_settle_mode,
+			pay_settle_rate,
+			pay_settle_method,
+			acceptance_date,
+			status,
+			is_valid,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{applyType},
+			#{changeType},
+			#{changeReason},
+			#{applyId},
+			#{originalContractId},
+			#{contractCode},
+			#{contractName},
+			#{contractDesc},
+			#{version},
+			#{contractType},
+			#{contractProperty},
+			#{contractNature},
+			#{totalAmount},
+			#{projectType},
+			#{createdByUserid},
+			#{createdBy},
+			#{signDeptNum},
+			#{signDept},
+			#{signEmail},
+			#{signMobile},
+			#{formalContract},
+			#{relatedContract},
+			#{companyName},
+			#{companyCode},
+			#{supplierName},
+			#{supplierCode},
+			#{countryTaxpayerNumber},
+			#{localTaxpayerNumber},
+			#{contractPersonName},
+			#{contractPersonPost},
+			#{contractPersonEmail},
+			#{contractPersonTel},
+			#{registeredAddress},
+			#{bankCode},
+			#{bankAccountNum},
+			#{openBank},
+			#{paySettleMode},
+			#{paySettleRate},
+			#{paySettleMethod},
+			#{acceptanceDate},
+			#{status},
+			#{isValid},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_contract SET 	
+			apply_type = #{applyType},
+			change_type = #{changeType},
+			change_reason = #{changeReason},
+			apply_id = #{applyId},
+			original_contract_id = #{originalContractId},
+			contract_code = #{contractCode},
+			contract_name = #{contractName},
+			contract_desc = #{contractDesc},
+			version = #{version},
+			contract_type = #{contractType},
+			contract_property = #{contractProperty},
+			contract_nature = #{contractNature},
+			total_amount = #{totalAmount},
+			project_type = #{projectType},
+			created_by_userid = #{createdByUserid},
+			created_by = #{createdBy},
+			sign_dept_num = #{signDeptNum},
+			sign_dept = #{signDept},
+			sign_email = #{signEmail},
+			sign_mobile = #{signMobile},
+			formal_contract = #{formalContract},
+			related_contract = #{relatedContract},
+			company_name = #{companyName},
+			company_code = #{companyCode},
+			supplier_name = #{supplierName},
+			supplier_code = #{supplierCode},
+			country_taxpayer_number = #{countryTaxpayerNumber},
+			local_taxpayer_number = #{localTaxpayerNumber},
+			contract_person_name = #{contractPersonName},
+			contract_person_post = #{contractPersonPost},
+			contract_person_email = #{contractPersonEmail},
+			contract_person_tel = #{contractPersonTel},
+			registered_address = #{registeredAddress},
+			bank_code = #{bankCode},
+			bank_account_num = #{bankAccountNum},
+			open_bank = #{openBank},
+			pay_settle_mode = #{paySettleMode},
+			pay_settle_rate = #{paySettleRate},
+			pay_settle_method = #{paySettleMethod},
+			acceptance_date = #{acceptanceDate},
+			status = #{status},
+			is_valid = #{isValid},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_contract SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

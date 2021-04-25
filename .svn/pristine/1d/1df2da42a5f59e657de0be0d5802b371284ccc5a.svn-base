@@ -1,0 +1,25 @@
+.left{
+     width:47px;
+  height:50px;
+  float:left;
+  margin-left:100px;
+  margin-top:100px;
+ }
+ .right{
+     width:400px;
+  height:50px;
+  float:left;
+  margin-top:100px;
+  margin-left:10px;
+ }
+ img{
+    float:left;
+ }
+ h3{
+ display:inline-block;
+ float:left; 
+ margin-top:8px;
+ }
+ h3>a{
+    font-size:13px;
+ }

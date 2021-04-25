@@ -1,0 +1,89 @@
+ul,li{margin:0;padding:0; list-style:none;font-family: "微软雅黑"; -webkit-appearance: none;}
+a{color:#2b2b2b; text-decoration:none}
+body{
+	font-size:13px;
+	background-color:#f7f7f8;
+}
+img { border:0px;}
+
+.whole{
+	overflow:hidden;
+}
+
+.seat_show{
+	overflow:hidden;
+	margin:0 auto;
+	width:50%;
+	border-bottom:1px solid #f2f2f1;
+	background-color:#fff;
+}
+.seat_show ul{
+	overflow:hidden;
+	padding:15px 25px;
+}
+.seat_show ul li{
+	float:left;
+	width:25%;
+	text-align:center;
+}
+.seat_show ul li span{
+	float:left;
+    padding-left: 20px;
+    line-height: 10px;
+}
+.seat_show ul li i{
+	float:left;
+	width:45px;
+	height:45px;
+	overflow:hidden;
+	background-image:url(../image/seats.png);
+	background-size:100% auto;
+}
+.seat_show ul li + li i{
+	background-position:0 -90px;
+}
+.seat_show ul li + li + li i{
+	background-position:0 -45px;
+}
+.seat_show ul li + li + li + li i{
+	background-image:none;
+	border:1px dashed #ee7a7d;
+}
+
+
+.seat_choose{
+	position:relative;
+	overflow:hidden;
+}
+
+.backcolor {
+    background-color: #FFFFFF !important;
+    color: #fff;
+    line-height: 10px;
+}
+
+.seats >ul >li{
+	float: left;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    padding: 1px 1px;
+}
+.seats ul li label{
+	display:inline-block;
+	width:60px;
+	height:60px;
+	background-image:url(../image/seats.png);
+	background-size:100% auto;
+}
+.seats ul li input:checked ~ label{
+	background-position:0 -60px;
+}
+.seats ul li input{
+	display: none;
+}
+
+.seats ul li.selected input ~ label{
+	background-position:0 -120px;
+}
+

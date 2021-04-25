@@ -1,0 +1,80 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	.container{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		position:relative;
+	}
+
+	.wrapper{
+		width: 800px;
+		height: 1000px;
+		text-align: center;
+		left: 50%;
+		margin-left: -400px;
+		position: absolute;
+	}
+	.header>h3{
+		color: black;
+	}
+	.wrapper>table{
+		width:700px;
+		height:820px;
+		border: 2px solid black;
+		margin-left: 70px;
+	}
+	.firstLine,.secondLine{
+		height:50px;
+	}
+	.threeLine{
+		height: 300px;
+	}
+	.firstLine>td,.secondLine>td,.threeLine>td{
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;
+	}
+	/*第一二行*/
+	.firstLine>td:nth-child(1),.secondLine>td:nth-child(1){
+		width: 15%;
+	}
+	.firstLine>td:nth-child(2),.secondLine>td:nth-child(2){
+		width: 15%;
+	}
+	.firstLine>td:nth-child(3),.secondLine>td:nth-child(3){
+		width:15%;
+	}
+	.firstLine>td:nth-child(4),.secondLine>td:nth-child(4){
+		width: 15%;
+	}
+	/*第三行*/
+	.threeLine>td:nth-child(1){
+		width: 15%;
+	}
+	.threeLine>td:nth-child(2){
+		width: 15%;
+	}
+	/*第四行*/
+	.fourLine{
+		height: 300px;
+	}
+	.fourLine>td{
+		border-bottom: 1px solid black;
+		border-right: 1px solid black;
+	}
+	.fourLine>td:nth-child(1){
+		width: 15%;
+	}
+	.fourLine>td:nth-child(2){
+		width: 15%;
+	}
+	.exame>textarea{
+	    width:97%;
+	    height:95%;
+	}

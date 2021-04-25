@@ -1,0 +1,103 @@
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	text-align: center;
+	margin: 0px;
+}
+table{
+	width: 700px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+	}
+td{
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	text-align: center;
+	width: 116px;
+	}
+input{
+	margin: 0px;
+	padding: 0px;
+}
+
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#head{
+	margin: 0px;
+	margin-bottom: 5px;
+}
+.center{
+	text-align: center;
+}
+.right{
+	text-align: right;
+}
+.left{
+	text-align: left;
+}
+.clear{
+	border: 0px;
+}
+.b-l{
+	border: 0px;
+	border-left: 1px solid black;
+}
+.bottom-b{
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+.small{
+	font-size: 12px;
+}
+.tr0{
+	height: 20px;
+}
+.tr1{
+	height: 47px;
+}
+.tr2{
+	height: 47px;
+}
+.tr3{
+	height: 250px;
+	position: relative;
+}
+
+textarea{
+	width: 90%;
+	height: 71%;
+}
+.td3{
+	position: relative;
+}
+input[type='text']{
+	width: 80%;
+}
+.txt{
+	left:10px;
+	top:5px;
+	position: absolute;
+}
+.checked{
+	bottom:1px;
+	position: absolute;
+	width: 100%;
+}
+.checked>span:nth-child(1){
+	margin-left: 80px;
+}
+.checked>span:nth-child(2){
+	margin-left:180px;
+}

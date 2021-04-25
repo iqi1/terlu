@@ -1,0 +1,91 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 8px;
+	width: 80%;
+}
+textarea{
+	width:96%;
+	margin-left: 2%;
+	padding: 2px;
+}
+.textarea1{
+	height:80%;
+}
+.textarea2{
+	height:70%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+#head{
+		width: 100%;
+}
+table{
+	width: 756px;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+}
+.tr1{
+	height:50px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	text-align: center;
+}
+.tr2{
+	height: 400px;
+}
+.tr3{
+	height: 300px;
+}
+.tr4{
+	height:280px;
+}
+.tr5{
+	height: 100px;
+}
+.tr5>td{
+	text-align: center;
+}
+.td4{
+	position: relative;
+}
+ .txt{
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	height: 20px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.people{
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+.data{
+	margin-left:200px;
+}
+.spans{
+	width: 300px;
+	display: inline-block;
+}

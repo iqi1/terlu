@@ -1,0 +1,51 @@
+#all{
+		width: 756px;
+		height:1086px;
+		left:50%;
+		margin-left: -400px;
+		position: absolute;
+		}
+	td{
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+		border-left: 1px solid black;
+		border-bottom: 1px solid black;
+		text-align: center;
+		/*width: 5%;*/
+	}
+	input{
+		padding: 8px;
+		width: 90%;
+	}
+	textarea{
+		width:90%;
+		height: 80%;
+	}
+	h3{
+		text-align: center;
+		color: black;
+	}
+	p{
+		margin: 0px;
+	}
+	#head{
+			width: 100%;
+	}
+	table{
+		width: 756px;
+		border-right: 1px solid black;
+		border-top: 1px solid black;
+	}
+	.tr1{
+		height:50px;
+	}
+	.tr1>td{
+		text-align: center;
+	}
+	.tr3{
+		height: 40px;
+	}
+	.tr4{
+		height: 800px;
+	}

@@ -1,0 +1,60 @@
+#all{
+	width: 1500px;
+	height: 500px;
+}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	/*width: 5%;*/
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 98%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#head{
+		width: 100%;
+}
+table{
+	width: 1500px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.tr1{
+	height:40px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.tr3{
+	height: 40px;
+}
+
+input{
+	width: 70%;
+}
+.title>span:nth-child(1){
+	margin-left: 80%;
+}
+.last{
+	height: 100px;
+}
+textarea{
+	width: 97%;
+	height: 90%;
+}

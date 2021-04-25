@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlRequestTestRoadDao">
+    
+	<sql id="tlRequestTestRoadColumns">
+		a.id AS "id",
+		a.project_id AS "projectId",
+		a.test_road AS "testRoad",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.car_count AS "carCount",
+		b.company_name AS "projectName",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlRequestTestRoadColumns2">
+		a.test_road AS "testRoad",
+		DATE_FORMAT(a.start_time,'%Y-%m-%d') AS "startTime",
+		b.company_name AS "projectName",
+		a.car_count AS "carCount",
+		a.project_id AS "projectId"
+	</sql>
+	
+	<sql id="tlRequestTestRoadJoins">
+		left join tl_custom_baseinfo b on a.project_id = b.id
+	</sql>
+    
+	<select id="get" resultType="TlRequestTestRoad">
+		SELECT 
+			<include refid="tlRequestTestRoadColumns"/>
+		FROM tl_request_test_road a
+		<include refid="tlRequestTestRoadJoins"/>
+		WHERE a.id = #{id} and a.del_flag = 0
+	</select>
+	
+	<select id="findList" resultType="TlRequestTestRoad">
+		SELECT DISTINCT
+			<include refid="tlRequestTestRoadColumns2"/>
+		FROM tl_request_test_road a
+		<include refid="tlRequestTestRoadJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road = #{testRoad}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time &lt;= #{endTime}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_Flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.start_time DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findListFor" resultType="TlRequestTestRoad">
+		SELECT 
+			<include refid="tlRequestTestRoadColumns"/>
+		FROM tl_request_test_road a
+		<include refid="tlRequestTestRoadJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road = #{testRoad}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time &lt;= #{endTime}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_Flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY b.company_name,a.start_time 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlRequestTestRoad">
+		SELECT 
+			<include refid="tlRequestTestRoadColumns"/>
+		FROM tl_request_test_road a
+		<include refid="tlRequestTestRoadJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insertList" parameterType="java.util.List">
+		INSERT INTO tl_request_test_road(
+			id,
+			project_id,
+			test_road,
+			start_time,
+			end_time,
+			car_count,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+			)
+			VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{item.projectId},
+			#{item.testRoad},
+			#{item.startTime},
+			#{item.endTime},
+			#{item.carCount},
+			#{item.createBy.id},
+			#{item.createDate},
+			#{item.updateBy.id},
+			#{item.updateDate},
+			#{item.remarks},
+			#{item.delFlag}
+			)
+			</foreach>
+	</insert>
+	
+	
+	<insert id="insert">
+		INSERT INTO tl_request_test_road(
+			id,
+			project_id,
+			test_road,
+			start_time,
+			end_time,
+			car_count,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{projectId},
+			#{testRoad},
+			#{startTime},
+			#{endTime},
+			#{carCount},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	
+	<update id="updateList" parameterType="java.util.List">
+		update tl_request_test_road 
+		set  car_count=
+		<foreach collection="list" item="item" index="index" 
+		    separator=" " open="case ID" close="end">
+		    when #{item.id} then #{item.carCount}
+		</foreach>
+		,update_by=
+		<foreach collection="list" item="item" index="index" 
+		    separator=" " open="case ID" close="end">
+		    when #{item.id} then #{item.updateBy.id}
+		</foreach>
+		,update_date=
+		<foreach collection="list" item="item" index="index" 
+		    separator=" " open="case ID" close="end">
+		    when #{item.id} then #{item.updateDate}
+		</foreach>
+		where id in
+		<foreach collection="list" index="index" item="item" 
+		    separator="," open="(" close=")">
+		    #{item.id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	<update id="update">
+		UPDATE tl_request_test_road SET 	
+			project_id = #{projectId},
+			test_road = #{testRoad},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			car_count = #{carCount},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_request_test_road SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,69 @@
+/*通用头部*/
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 2px auto;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+/*框架*/
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+table{
+	width: 800px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+/*表内*/
+.tr1{
+	height: 50px;
+}
+
+input{
+	width: 80%;
+}
+/*.title>span:nth-child(1){
+	margin-left: 100px;
+}*/
+.title>span:nth-child(2){
+	margin-left: 100px;
+}
+.title>span>input:nth-child(1){
+	width: 180px;
+}
+.td1{
+	width: 80px;
+}
+.month,.day{
+	width: 40px;
+}
+.company{
+	width: 150px;
+}

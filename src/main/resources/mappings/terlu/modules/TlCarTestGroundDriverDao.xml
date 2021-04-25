@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlCarTestGroundDriverDao">
+    
+	<sql id="tlCarTestGroundDriverColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.telephone_driver AS "telephoneDriver",
+		a.idcard_passport AS "idcardPassport",
+		a.driver_license_num AS "driverLicenseNum",
+		a.first_license_time AS "firstLicenseTime",
+		a.household_register AS "householdRegister",
+		a.driver_photo AS "driverPhoto",
+		a.health AS "health",
+		a.bad_record AS "badRecord",
+		a.record_below_12 AS "recordBelow12",
+		a.ispass_exam AS "ispassExam",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlCarTestGroundDriverJoins">
+	</sql>
+    
+	<select id="get" resultType="TlCarTestGroundDriver">
+		SELECT 
+			<include refid="tlCarTestGroundDriverColumns"/>
+		FROM tl_car_test_ground_driver a
+		<include refid="tlCarTestGroundDriverJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlCarTestGroundDriver">
+		SELECT 
+			<include refid="tlCarTestGroundDriverColumns"/>
+		FROM tl_car_test_ground_driver a
+		<include refid="tlCarTestGroundDriverJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="telephoneDriver != null and telephoneDriver != ''">
+				AND a.telephone_driver LIKE 
+					<if test="dbName == 'oracle'">'%'||#{telephoneDriver}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{telephoneDriver}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{telephoneDriver},'%')</if>
+			</if>
+			<if test="idcardPassport != null and idcardPassport != ''">
+				AND a.idcard_passport LIKE 
+					<if test="dbName == 'oracle'">'%'||#{idcardPassport}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{idcardPassport}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{idcardPassport},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlCarTestGroundDriver">
+		SELECT 
+			<include refid="tlCarTestGroundDriverColumns"/>
+		FROM tl_car_test_ground_driver a
+		<include refid="tlCarTestGroundDriverJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_car_test_ground_driver(
+			id,
+			name,
+			telephone_driver,
+			idcard_passport,
+			driver_license_num,
+			first_license_time,
+			household_register,
+			driver_photo,
+			health,
+			bad_record,
+			record_below_12,
+			ispass_exam,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{name},
+			#{telephoneDriver},
+			#{idcardPassport},
+			#{driverLicenseNum},
+			#{firstLicenseTime},
+			#{householdRegister},
+			#{driverPhoto},
+			#{health},
+			#{badRecord},
+			#{recordBelow12},
+			#{ispassExam},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_car_test_ground_driver SET 	
+			name = #{name},
+			telephone_driver = #{telephoneDriver},
+			idcard_passport = #{idcardPassport},
+			driver_license_num = #{driverLicenseNum},
+			first_license_time = #{firstLicenseTime},
+			household_register = #{householdRegister},
+			driver_photo = #{driverPhoto},
+			health = #{health},
+			bad_record = #{badRecord},
+			record_below_12 = #{recordBelow12},
+			ispass_exam = #{ispassExam},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_car_test_ground_driver SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

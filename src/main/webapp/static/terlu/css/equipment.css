@@ -1,0 +1,71 @@
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 98%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+table{
+	width: 700px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.tr1{
+	height:40px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.tr3{
+	height: 40px;
+}
+
+input{
+	width: 80%;
+}
+.title>span:nth-child(2){
+	margin-left: 10%;
+}
+.title>span:nth-child(3){
+	margin-left: 17%;
+}
+.last{
+	height: 100px;
+}
+textarea{
+	width: 97%;
+	height: 90%;
+}
+.td12{
+	border-right: 1px solid black;
+}

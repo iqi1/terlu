@@ -1,0 +1,56 @@
+    *{
+        margin: 0px;
+        padding: 0px;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            position:relative;
+        }
+        .header>h3{
+            color: black;
+        }
+        .wrapper{
+            width: 800px;
+            height: 1000px;
+            text-align: center;
+            left: 50%;
+            margin-left: -400px;
+            position: absolute;
+        }
+        .wrapper>table{
+            width:700px;
+            height:820px;
+            border: 2px solid black;
+            margin-left: 70px;
+        }
+
+        .oneLine{
+            height: 100px;
+        }
+        .oneLine>td,.threeLine>td,.fourLine>td,.fiveLine>td,.sixLine>td{
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+        .oneLine>td:nth-child(1){
+            width: 20%;
+        }
+        .oneLine>td:nth-child(2){
+            width: 80%;
+        }
+        .threeLine{
+            height: 200px;
+        }
+        .threeLineTd{
+            position: relative;
+        }
+        .survey{
+            position: absolute;
+            right: 92px;
+            top:165px;
+        }

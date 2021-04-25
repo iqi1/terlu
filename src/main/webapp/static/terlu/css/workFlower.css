@@ -1,0 +1,70 @@
+#all{
+	width: 1000px;
+	height: 500px;
+	left:50%;
+	margin-left: -500px;
+	position: absolute;
+}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	/*width: 5%;*/
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 98%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+/*¿ò¼Ü*/
+#head{
+		width: 100%;
+}
+table{
+	width: 1000px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+	margin-left: 30px;
+}
+
+/*±íÄÚ*/
+.tr1{
+	height:40px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.tr2{
+	height: 400px;
+}
+
+input{
+	width: 80%;
+}
+
+.title>span{
+	margin-left: 30px;
+}
+
+
+.last{
+	height: 100px;
+}
+textarea{
+	width:80%;
+	height: 90%;
+}

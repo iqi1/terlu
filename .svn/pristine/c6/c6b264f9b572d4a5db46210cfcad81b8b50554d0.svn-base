@@ -1,0 +1,38 @@
+.wrapper{
+	width:1000px;
+	height: 600px;
+	left: 80px;
+	top:30px;
+	position: absolute;
+}
+.task{
+	color: #0e2d5f;
+	margin-left: 10px;
+}
+.sortFrom{
+	width: 98%;
+	height: 86%;
+	border: 1px solid #ccc;
+	background-color: white;
+	margin-left: 1%;
+}
+.closed{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background-color: orange;
+	text-align: center;
+	float: right;
+	margin-right: 10px;
+	margin-top: 3px;
+	border-radius: 4px;
+	font-size: 18px;
+}
+.closed:hover{
+	background-color: #f60;
+}
+.last{
+	right: 50px;
+	position: absolute;
+	margin-top: 10px;
+}

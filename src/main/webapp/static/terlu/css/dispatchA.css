@@ -1,0 +1,63 @@
+/*通用头部*/
+#all{
+	width: 100%;
+	
+}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 5%;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width: 76%;
+	height:80%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+/*框架*/
+#head{
+    width: 100%;
+}
+table{
+	width: 1500px;
+	border: 1px solid black;
+}
+
+/*表内*/
+.tr1{
+	height:40px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	height:50px;
+}
+.tr2{
+	height: 400px;
+}
+
+input{
+	width: 80%;
+}
+
+.title>span{
+	margin-left: 30px;
+}
+.last{
+	height: 100px;
+}
+.select2-container .select2-choice{
+	width:110px;
+}

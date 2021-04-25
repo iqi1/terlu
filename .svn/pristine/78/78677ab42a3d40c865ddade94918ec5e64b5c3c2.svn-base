@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlOtherExtendsInfoDao">
+    
+	<sql id="tlOtherExtendsInfoColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.isdanger AS "isdanger",
+		a.iscamera AS "iscamera",
+		a.danger_description AS "dangerDescription",
+		a.safe_explain AS "safeExplain",
+		a.public_workshop AS "publicWorkshop",
+		a.confidential_workshop AS "confidentialWorkshop",
+		a.meeting_room AS "meetingRoom",
+		a.specific_requirement AS "specificRequirement",
+		a.is_car_rental_service AS "isCarRentalService",
+		a.is_need_hire_test_driver AS "isNeedHireTestDriver",
+		a.other_special_services AS "otherSpecialServices",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlOtherExtendsInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="TlOtherExtendsInfo">
+		SELECT 
+			<include refid="tlOtherExtendsInfoColumns"/>
+		FROM tl_other_extends_info a
+		<include refid="tlOtherExtendsInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlOtherExtendsInfo">
+		SELECT 
+			<include refid="tlOtherExtendsInfoColumns"/>
+		FROM tl_other_extends_info a
+		<include refid="tlOtherExtendsInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id =  #{parentId}
+			</if>
+			<if test="isdanger != null and isdanger != ''">
+				AND a.isdanger LIKE 
+					<if test="dbName == 'oracle'">'%'||#{isdanger}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{isdanger}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{isdanger},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlOtherExtendsInfo">
+		SELECT 
+			<include refid="tlOtherExtendsInfoColumns"/>
+		FROM tl_other_extends_info a
+		<include refid="tlOtherExtendsInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_other_extends_info(
+			id,
+			parent_id,
+			isdanger,
+			iscamera,
+			danger_description,
+			safe_explain,
+			public_workshop,
+			confidential_workshop,
+			meeting_room,
+			specific_requirement,
+			is_car_rental_service,
+			is_need_hire_test_driver,
+			other_special_services,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{isdanger},
+			#{iscamera},
+			#{dangerDescription},
+			#{safeExplain},
+			#{publicWorkshop},
+			#{confidentialWorkshop},
+			#{meetingRoom},
+			#{specificRequirement},
+			#{isCarRentalService},
+			#{isNeedHireTestDriver},
+			#{otherSpecialServices},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_other_extends_info SET 	
+			parent_id = #{parentId},
+			isdanger = #{isdanger},
+			iscamera = #{iscamera},
+			danger_description = #{dangerDescription},
+			safe_explain = #{safeExplain},
+			public_workshop = #{publicWorkshop},
+			confidential_workshop = #{confidentialWorkshop},
+			meeting_room = #{meetingRoom},
+			specific_requirement = #{specificRequirement},
+			is_car_rental_service = #{isCarRentalService},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_other_extends_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

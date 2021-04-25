@@ -1,0 +1,106 @@
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	width: 116px;
+}
+input{
+	padding: 2px auto;
+}
+textarea{
+	width:76%;
+	height: 80%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+p{
+	margin: 0px;
+}
+.title{
+	width:120%;
+}
+.title>span:nth-child(2){
+	margin-left:16%
+}
+.title>span:nth-child(3){
+	margin-left:21%
+}
+#all{
+	width: 100%;
+}
+#center{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+#head{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto
+}
+.mark{
+	text-align: right;
+}
+table{
+	width: 800px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.b-l{
+	border-left: 1px solid black;
+}
+.b-b{
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+.left{
+	width: 98%;
+	text-align: left;
+}
+
+.tr1{
+	height: 40px;
+}
+input{
+	width: 80%;
+}
+.textarea1{
+	width: 98%;
+	height:87%;
+	margin-top: -30px;
+}
+.td3{
+	position: relative;
+}
+.txt{
+	position: absolute;
+	left: 10px;
+	top:10px;
+}
+.last{
+	margin-top:10px;
+}
+.last>span:nth-child(3){
+	margin-left:40px;
+}
+td{
+   	width: 8%;
+   }
+.td1{
+	width: 3%;
+}
+.td1>input{
+	width:30px;
+}
+
+.select2-container .select2-choice{
+	width:239px;
+	padding:0px;
+}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlSettleAccountsDao">
+    
+	<sql id="tlSettleAccountsColumns">
+		a.id AS "id",
+		a.project AS "project",
+		a.company AS "company",
+		a.settle_num AS "settleNum",
+		a.consignee AS "consignee",
+		a.delivery_time AS "deliveryTime",
+		a.total_amount AS "totalAmount",
+		a.deduct_money AS "deductMoney",
+		a.confirm_amount AS "confirmAmount",
+		a.attachment AS "attachment",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlSettleAccountsJoins">
+	</sql>
+    
+	<select id="get" resultType="TlSettleAccounts">
+		SELECT 
+			<include refid="tlSettleAccountsColumns"/>
+		FROM tl_settle_accounts a
+		<include refid="tlSettleAccountsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlSettleAccounts">
+		SELECT 
+			<include refid="tlSettleAccountsColumns"/>
+		FROM tl_settle_accounts a
+		<include refid="tlSettleAccountsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="project != null and project != ''">
+				AND a.project LIKE 
+					<if test="dbName == 'oracle'">'%'||#{project}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{project}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{project},'%')</if>
+			</if>
+			<if test="company != null and company != ''">
+				AND a.company LIKE 
+					<if test="dbName == 'oracle'">'%'||#{company}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{company}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{company},'%')</if>
+			</if>
+			<if test="consignee != null and consignee != ''">
+				AND a.consignee LIKE 
+					<if test="dbName == 'oracle'">'%'||#{consignee}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{consignee}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{consignee},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlSettleAccounts">
+		SELECT 
+			<include refid="tlSettleAccountsColumns"/>
+		FROM tl_settle_accounts a
+		<include refid="tlSettleAccountsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_settle_accounts(
+			id,
+			project,
+			company,
+			settle_num,
+			consignee,
+			delivery_time,
+			total_amount,
+			deduct_money,
+			confirm_amount,
+			attachment,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{project},
+			#{company},
+			#{settleNum},
+			#{consignee},
+			#{deliveryTime},
+			#{totalAmount},
+			#{deductMoney},
+			#{confirmAmount},
+			#{attachment},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_settle_accounts SET 	
+			project = #{project},
+			company = #{company},
+			settle_num = #{settleNum},
+			consignee = #{consignee},
+			delivery_time = #{deliveryTime},
+			total_amount = #{totalAmount},
+			deduct_money = #{deductMoney},
+			confirm_amount = #{confirmAmount},
+			attachment = #{attachment},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_settle_accounts SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

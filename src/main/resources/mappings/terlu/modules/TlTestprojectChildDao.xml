@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.terlu.modules.dao.TlTestprojectChildDao">
+    
+	<sql id="tlTestprojectChildColumns">
+		a.id AS "id",
+		a.tl_testproject_id AS "tlTestprojectId",
+		a.test_road AS "testRoad",
+		a.car_time AS "carTime",
+		a.brief_description AS "briefDescription",
+		a.limit_speed AS "limitSpeed",
+		a.car_lim_num AS "carLimNum",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="tlTestprojectChildJoins">
+	</sql>
+    
+	<select id="get" resultType="TlTestprojectChild">
+		SELECT 
+			<include refid="tlTestprojectChildColumns"/>
+		FROM tl_testproject_child a
+		<include refid="tlTestprojectChildJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TlTestprojectChild">
+		SELECT 
+			<include refid="tlTestprojectChildColumns"/>
+		FROM tl_testproject_child a
+		<include refid="tlTestprojectChildJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="tlTestprojectId != null and tlTestprojectId != ''">
+				AND a.tl_testproject_id =  #{tlTestprojectId}
+			</if>
+			<if test="testRoad != null and testRoad != ''">
+				AND a.test_road LIKE 
+					<if test="dbName == 'oracle'">'%'||#{testRoad}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{testRoad}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{testRoad},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TlTestprojectChild">
+		SELECT 
+			<include refid="tlTestprojectChildColumns"/>
+		FROM tl_testproject_child a
+		<include refid="tlTestprojectChildJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tl_testproject_child(
+			id,
+			tl_testproject_id,
+			test_road,
+			car_time,
+			brief_description,
+			limit_speed,
+			car_lim_num,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{tlTestprojectId},
+			#{testRoad},
+			#{carTime},
+			#{briefDescription},
+			#{limitSpeed},
+			#{carLimNum},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tl_testproject_child SET 	
+			tl_testproject_id = #{tlTestprojectId},
+			test_road = #{testRoad},
+			car_time = #{carTime},
+			brief_description = #{briefDescription},
+			limit_speed = #{limitSpeed},
+			car_lim_num = #{carLimNum},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tl_testproject_child SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

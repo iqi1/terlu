@@ -1,0 +1,88 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+#all{
+	width: 756px;
+	height:1086px;
+	left:50%;
+	margin-left: -400px;
+	position: absolute;
+	}
+td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+input{
+	padding: 8px;
+	width: 80%;
+}
+textarea{
+	width:96%;
+	margin-left: 2%;
+	position: absolute;
+	top:33px;
+}
+.textarea1{
+	height:75%;
+}
+.textarea2{
+	height:80%;
+}
+h3{
+	text-align: center;
+	color: black;
+}
+#head{
+	width: 100%;
+}
+table{
+	width: 756px;
+	border-left: 1px solid black;
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+.tr1{
+	height:50px;
+}
+.tr1>td{
+	border-left: 1px solid black;
+}
+.tr2{
+	height: 80px;
+}
+.tr3{
+	height: 40px;
+}
+.tr4{
+	height:200px;
+}
+.tr5{
+	height: 400px;
+}
+.td4{
+	position: relative;
+}
+ .txt{
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	height: 20px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+input[type='checkbox']{
+	width: 20px;
+}
+.people{
+	position: absolute;
+	right:100px;
+	bottom:0px;
+}
+.tr6{
+	height: 100px;
+}
